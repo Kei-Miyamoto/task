@@ -108,9 +108,9 @@
                   <select name="company_name" class="form-control" >
                     <option value="">未選択</option>
                     @foreach($products as $product)
-                    <option value="{{ $product->company_id }}">
-                      {{ $company_name ?? '' }}
-                    </option>  
+                      <option value="{{ $product->company_id }}">
+                        {{ $product->company_id }}
+                      </option>  
                     @endforeach
                   </select>
                 </div>
