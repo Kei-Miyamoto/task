@@ -20,5 +20,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+//ログイン後ホーム（商品一覧検索画面）
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
+//検索結果表示
+Route::get('/search', [App\Http\Controllers\SearchController::class, 'search'])->name('search');

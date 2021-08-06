@@ -21,7 +21,7 @@ class Product extends Model
       'price'
     ];
 
-    public function company() {
+    public function companies() {
       //return $this->belongsTo('App\Models\Company', 'id','company_id' );
       return $this->belongsTo(Company::class);
     }

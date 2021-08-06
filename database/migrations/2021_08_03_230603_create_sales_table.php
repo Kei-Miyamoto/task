@@ -15,7 +15,8 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('product_id');
+            $table->integer('product_id')->unsigned();//商品ID
+            $table->foreign('product_id')->references('id')->on('products');//紐付け
             $table->timestamps();
         });
     }

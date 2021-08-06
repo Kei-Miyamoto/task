@@ -14,6 +14,8 @@ class Company extends Model
       'company_name',
       'street_address',
   ];
+    protected $guarded = array('id');
+    
     public function products() {
       //return $this->hasMany('App\Models\Product', 'id', 'company_id');
       return $this->hasMany(Product::class);
