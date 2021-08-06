@@ -36,6 +36,7 @@ class HomeController extends Controller
      */
     public function index() {
       $products = Product::all();
+      
       //$company_name = Models\Company::with('company_name');
       return view('layouts.app', ['products' => $products]); //('A.B')AのディレクトリーのBのブレード, ['key' => $受け取ったデータ]
    }

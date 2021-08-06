@@ -146,7 +146,7 @@
             <td>{{ $product->product_name }}</td>
             <td>{{ $product->price }}</td>
             <td>{{ $product->stock }}</td>
-           <td>{{ $company_name ?? ''}}</td>
+           <td>{{ $product->company_id }}</td>
             <td>{!! nl2br(e(Str::limit($product->message, 100))) !!}
             <td class="text-nowrap">
                 <p><a href="" class="btn btn-primary btn-sm">詳細</a></p>

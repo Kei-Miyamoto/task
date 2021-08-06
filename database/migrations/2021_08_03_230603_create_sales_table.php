@@ -14,9 +14,9 @@ class CreateSalesTable extends Migration
     public function up()
     {
         Schema::create('sales', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('product_id')->unsigned();//商品ID
-            $table->foreign('product_id')->references('id')->on('products');//紐付け
+            $table->bigIncrements('id')->unsigned();
+            $table->bigInteger('product_id')->unsigned();//商品ID
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');//紐付け
             $table->timestamps();
         });
     }
