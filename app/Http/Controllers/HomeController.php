@@ -22,28 +22,35 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    /* public function index()
-    {
-        //home->layout.app
-        return view('layouts.app');
-    } */
-    
-    /**
      * 商品一覧を表示
      */
     public function index() {
       $products = Product::all();
       //dd($products);
-      //$company_name = Models\Company::with('company_name');
-      return view('layouts.app', ['products' => $products]); //('A.B')AのディレクトリーのBのブレード, ['key' => $受け取ったデータ]
+      return view('layouts.app', ['products' => $products]);
    }
+
+   /**
+     * 商品詳細を表示
+     * @param int $id
+     * @return view
+     */
+    public function detail($id) {
+      $product = Product::find($id);
+
+      if(is_null($product)) {
+        \Session::flash('err_msg', 'データがありません');
+        return redirect(route('index'));
+      }
+      
+      return view('layouts.detail', ['product' => $product]);
+    }
+
    /* 
    public function showSearch() {
      $products = Product::all();
      return view('showSearch')->with('products', $products);
    } */
+
+   
 }
