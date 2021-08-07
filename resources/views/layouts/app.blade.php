@@ -109,7 +109,7 @@
                     <option value="">未選択</option>
                     @foreach($products as $product)
                       <option value="{{ $product->company_id }}">
-                        {{ $product->company_id }}
+                        {{ $product->company->company_name }}
                       </option>  
                     @endforeach
                   </select>
@@ -146,7 +146,7 @@
             <td>{{ $product->product_name }}</td>
             <td>{{ $product->price }}</td>
             <td>{{ $product->stock }}</td>
-           <td>{{ $product->company_id }}</td>
+            <td>{{ $product->company->company_name }}</td>
             <td>{!! nl2br(e(Str::limit($product->message, 100))) !!}
             <td class="text-nowrap">
                 <p><a href="" class="btn btn-primary btn-sm">詳細</a></p>

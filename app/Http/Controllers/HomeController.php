@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+//use App\Http\Controllers\Schema;
 use App\Models\Product;
 use App\Models\Company;
 use App\Models;
@@ -36,7 +37,7 @@ class HomeController extends Controller
      */
     public function index() {
       $products = Product::all();
-      
+      //dd($products);
       //$company_name = Models\Company::with('company_name');
       return view('layouts.app', ['products' => $products]); //('A.B')AのディレクトリーのBのブレード, ['key' => $受け取ったデータ]
    }
