@@ -5,10 +5,10 @@
 </head>
   <body>
     <div id="app">
-      @include('layouts.nav')
+      @include('layouts.nav')<!-- ナビゲーション -->
     </div>
     <div id="app">
-    @yield('index') <!-- 商品検索と商品情報 -->
+    @yield('content') <!-- 商品検索と商品情報 -->
     </div>    
   </body>
 </html>
