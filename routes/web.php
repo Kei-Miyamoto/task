@@ -28,17 +28,17 @@ Route::group(['middleware' => 'web'], function() {
   
   //商品登録画面
   Route::get('/product/create',[App\Http\Controllers\HomeController::class,'showCreate'])->name('create');
-  
   //商品登録
   Route::post('/product/store',[App\Http\Controllers\HomeController::class,'exeStore'])->name('store');
   
   
   //商品詳細画面表示
   Route::get('/detail/{id}',[App\Http\Controllers\HomeController::class,'showDetail'])->name('detail');
+
   //商品編集画面表示
   Route::get('/product/edit/{id}',[App\Http\Controllers\HomeController::class,'showEdit'])->name('edit');
-  //商品編集
-  Route::get('/product/update',[App\Http\Controllers\HomeController::class,'exeUpdate'])->name('update');
+  //商品編集登録
+  Route::post('/product/update',[App\Http\Controllers\HomeController::class,'exeUpdate'])->name('update');
   
   Auth::routes();
   

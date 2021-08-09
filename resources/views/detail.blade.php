@@ -35,9 +35,8 @@
         <td>{{ $product->comment }}</td>
         <td>{!! nl2br(e(Str::limit($product->message, 100))) !!}
         <td class="text-nowrap">
-            <p><a href="" class="btn btn-primary btn-sm">詳細</a></p>
-            <p><a href="route('detail')" class="btn btn-info btn-sm">編集</a></p>
-            <p><a href="" class="btn btn-danger btn-sm">削除</a></p>
+          <p><a href="route('detail')" class="btn btn-info btn-sm">編集</a></p>
+          <p><a href="route('home')" class="btn btn-secondary btn-sm">戻る</a></p>
         </td>
       </tr>
     </tbody>

@@ -64,6 +64,7 @@ class HomeController extends Controller
     public function exeStore(PostRequest $request) {
       //商品情報データを受け取る
       $inputs = $request->all();
+      \DB::beginTransaction();
       //商品情報を登録
       Product::create($inputs);
       \Session::flash('flash_message', '商品情報を登録しました');
@@ -85,6 +86,34 @@ class HomeController extends Controller
       
       return view('edit', ['product' => $product]);
     }
+    
+    /**
+     * 商品情報を更新する
+     * @return view
+     */
+    public function exeUpdate(PostRequest $request) {
+      //商品情報データを受け取る
+      $inputs = $request->all();
 
+      \DB::beginTransaction();
+      try {
+        //商品情報を登録
+        $product = Product::find($inputs['id']);
+        $product->fill([
+          'product_name' => $inputs['product_name'],
+          'company_name' => $inputs['company_name'],
+          'price' => $inputs['price'],
+          'stock' => $inputs['stock'],
+          'comment' => $inputs['comment'],
+        ]);
+        $product->save();
+        \DB::commit();
+      } catch (\Throwable $e){
+        \DB::rollback();
+        abort(500);
+      }
+      \Session::flash('flash_message', '商品情報を更新しました');
+      return redirect(route('home'));
+    }
 
 }

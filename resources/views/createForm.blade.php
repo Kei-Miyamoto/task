@@ -5,7 +5,7 @@
 
 <div class="create-container">
   <div class="create-box">
-    <h2>商品情報登録</h2>
+    <h2>商品情報登録フォーム</h2>
     <form method="POST" action="{{ route('store') }}" onSubmit="return checkSubmit()">
       @csrf
       <div class="form-group row">
