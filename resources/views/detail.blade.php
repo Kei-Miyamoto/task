@@ -12,8 +12,8 @@
       </p>
     @endif
   <table class="table table-hover">
-   <thead>
-     <tr>
+    <thead>
+    <tr>
         <th>ID</th>
         <th>商品画像</th>
         <th>商品名</th>
@@ -22,7 +22,7 @@
         <th>メーカー名</th>
         <th>コメント</th>
         <th colspan="2">管理</th>
-     </tr>
+    </tr>
     </thead>
     <tbody id="tb1">
       <tr>

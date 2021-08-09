@@ -16,4 +16,5 @@
 
     <!-- Styles -->
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<link href="{{ asset('css/own.css') }}" rel="stylesheet">
 @show

@@ -8,7 +8,7 @@
 <div class="container">
   <div class="mx-auto">
     <br>
-    <h2 class="text-center">商品検索画面</h2>
+    <h2 class="text-center">商品検索</h2>
     <br>
     <!--検索フォーム-->
     <div class="row">
@@ -23,18 +23,18 @@
               <input type="text" class="form-control" name="searchWord" placheholder="検索したい名前を入力してください">
             </div>
             <div class="col-sm-auto">
-              <button type="submit" class="btn btn-primary ">検索</button>
+              <button type="submit" class="btn btn-primary">検索</button>
             </div>
           </div>     
           <!--プルダウンカテゴリ選択-->
           <div class="form-group row">
-            <label class="col-sm-2">企業名</label>
+            <label class="col-sm-2">メーカー名</label>
             <div class="col-sm-3">
               <select name="company_name" class="form-control" >
                 <option value="">未選択</option>
                 @foreach($products->unique('company_id') as $product)
                   <option value="{{ $product->company->company_name }}">
-                   {{ $product->company->company_name }}
+                  {{ $product->company->company_name }}
                   </option>  
                 @endforeach
               </select>
@@ -47,7 +47,10 @@
 </div>
 <!--商品一覧-->
 <div class="table-responsive">
-  <h2 class="text-center">商品一覧</h2>
+  <div class="col-sm-auto title-btn-box">
+    <h2 class="text-center product-title">商品一覧</h2>
+    <p><a type="submit" class="btn btn-success btn-1" href="{{ route('create') }}">新規登録</a></p>
+  </div>
   <table class="table table-hover">
     <thead>
       <tr>
