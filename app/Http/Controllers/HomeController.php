@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Schema;
 use App\Http\Controllers\Controller,Session;
@@ -60,9 +61,11 @@ class HomeController extends Controller
      * 商品情報を登録する
      * @return view
      */
-    public function exeStore(Request $request) {
-      dd($request->all());
-      Product::create();
+    public function exeStore(PostRequest $request) {
+      //商品情報データを受け取る
+      $inputs = $request->all();
+      //商品情報を登録
+      Product::create($inputs);
       \Session::flash('flash_message', '商品情報を登録しました');
       return redirect(route('home'));
     }

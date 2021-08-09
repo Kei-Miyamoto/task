@@ -16,16 +16,16 @@ class Product extends Model
       'stock',
       'comment',
   ];
-
+    
     protected $guarded = [
       'price'
     ];
 
     public function company() {
       //return $this->belongsTo('App\Models\Company', 'id','company_id' );
-      return $this->belongsTo(Company::class);
+      return $this->belongsTo(Company::class,'company_id');
     }
-     
+
     public function sales () {
       return $this->hasMany(Sale::class);
     }
