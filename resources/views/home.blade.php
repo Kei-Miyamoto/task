@@ -22,7 +22,7 @@
             <label class="col-sm-2 col-form-label">商品名</label>
             <!--入力-->
             <div class="col-sm-5">
-              <input type="search" value="{{ $search_product }}" class="form-control" name="product_name">
+              <input type="search" value="{{ $search_product_name }}" class="form-control" name="search_product_name">
             </div>
             <div class="col-sm-auto">
               <button type="submit" class="btn btn-primary">検索</button>
@@ -33,11 +33,11 @@
           <div class="form-group row">
             <label class="col-sm-2">メーカー名</label>
             <div class="col-sm-3">
-              <select name="company_name" class="form-control" >
-                <option value="{{ $search_company }}" selected>未選択</option>
-                @foreach($company as $company)
-                  <option value="{{ $company->company_name }}">
-                  {{ $company->company_name }}
+              <select value="search_comany_name" name="search_company_name" class="form-control" >
+                <option value="{{ $companies }}" selected>未選択</option>
+                @foreach($companies as $id => $company_name)
+                  <option value="{{ $id }}">
+                  {{ $company_name }}
                   </option>  
                 @endforeach
               </select>

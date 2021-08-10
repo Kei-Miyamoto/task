@@ -21,4 +21,9 @@ class Company extends Model
       //return $this->hasMany('App\Models\Product', 'id', 'company_id');
       return $this->hasMany(Product::class);
     }
+
+    public function getList() {
+      $companies = Company::pluck('company_name','id');
+      return $companies;
+    }
 }
