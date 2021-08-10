@@ -15,9 +15,9 @@
           <input name="product_name" class="form-control" type="text" value="{{ $product->product_name }}" placheholder="商品名を入れてください" >
         </div>
         @if ($errors->has('product_name'))
-          <div class="text-danger">
-            {{ $errors->first('product_name') }}
-          </div>
+        <div class="text-danger">
+          {{ $errors->first('product_name') }}
+        </div>
         @endif
       </div>
       <div class="form-group row">
@@ -26,10 +26,11 @@
           <select name="company_name" class="form-control" required>
             <option value="">未選択</option>
             @foreach(\App\Models\Product::all()->unique('company_id') as $product)
-              <option value="{{ $product->company->company_name }}"selected>
-                {{ $product->company->company_name }}
-              </option>  
+            <option value="{{ $product->company->company_name }}"selected>
+              {{ $product->company->company_name }}
+            </option>  
             @endforeach 
+            
           </select>
           @if ($errors->has('company_name'))
             <div class="text-danger">
@@ -63,7 +64,7 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="comment">コメント</label> 
         <div class="col-sm-5">
-          <textarea type="text" class="form-control" name="comment"  placheholder="コメントを入れてください">{{ $product->comment}}</textarea>
+          <textarea type="text" class="form-control" name="comment"  placheholder="コメントを入れてください">{{ $product->comment }}</textarea>
         </div>
         @if ($errors->has('comment'))
           <div class="text-danger">

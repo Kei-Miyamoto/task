@@ -40,6 +40,9 @@ Route::group(['middleware' => 'web'], function() {
   //商品編集登録
   Route::post('/product/update',[App\Http\Controllers\HomeController::class,'exeUpdate'])->name('update');
   
+  //商品削除
+  Route::post('/product/delete/{id}',[App\Http\Controllers\HomeController::class,'exeDelete'])->name('delete');
+
   Auth::routes();
   
 }); 

@@ -32,9 +32,9 @@
             <div class="col-sm-3">
               <select name="company_name" class="form-control" >
                 <option value="">未選択</option>
-                @foreach($products->unique('company_id') as $product)
-                  <option value="{{ $product->company->company_name }}">
-                  {{ $product->company->company_name }}
+                @foreach($companies as $company)
+                  <option value="{{ $company->company_name }}">
+                  {{ $company->company_name }}
                   </option>  
                 @endforeach
               </select>
@@ -74,13 +74,26 @@
           <td>{{ $product->company->company_name }}</td>
           <td>{!! nl2br(e(Str::limit($product->message, 100))) !!}
           <td class="text-nowrap">
-          <p><a href="/detail/{{ $product->id }}" class="btn btn-primary btn-sm">詳細</a></p>
-          <p><a href="/product/edit/{{ $product->id }}" class="btn btn-info btn-sm">編集</a></p>
-          <p><a href="" class="btn btn-danger btn-sm">削除</a></p>
+            <p><a href="/detail/{{ $product->id }}" class="btn btn-primary btn-sm">詳細</a></p>
+            <p><a href="/product/edit/{{ $product->id }}" class="btn btn-info btn-sm">編集</a></p>
+            <form method="POST" action="{{ route('delete', $product->id) }}" onSubmit="return checkDelete()">
+            @csrf
+            <button href="" class="btn btn-danger btn-sm">削除</button>
           </td>
+          </form>
         </tr>
       @endforeach
     </tbody>
   </table>
 </div>
+<script>
+function checkDelete(){
+if(window.confirm('削除してよろしいですか？')){
+    return true;
+} else {
+    return false;
+}
+}
+</script>
+
 @endsection

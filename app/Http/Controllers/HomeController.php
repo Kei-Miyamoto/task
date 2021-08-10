@@ -28,8 +28,9 @@ class HomeController extends Controller
      */
     public function showHome() {
       $products = Product::all();
+      $companies = Company::all();
       //dd($products);
-      return view('home', ['products' => $products]);
+      return view('home', ['products' => $products], ['companies' => $companies]);
     }
 
     /**
@@ -62,11 +63,25 @@ class HomeController extends Controller
      * @return view
      */
     public function exeStore(PostRequest $request) {
-      //商品情報データを受け取る
       $inputs = $request->all();
+
       \DB::beginTransaction();
-      //商品情報を登録
-      Product::create($inputs);
+      try {
+        //商品情報を登録
+        $product = Product::find($inputs['id']);
+        $product->fill([
+          'product_name' => $inputs['product_name'],
+          'company_name' => $inputs['product->id'],
+          'price' => $inputs['price'],
+          'stock' => $inputs['stock'],
+          'comment' => $inputs['comment'],
+        ]);
+        $product->save();
+        \DB::commit();
+      } catch (\Throwable $e){
+        \DB::rollback();
+        abort(500);
+      }
       \Session::flash('flash_message', '商品情報を登録しました');
       return redirect(route('home'));
     }
@@ -94,14 +109,14 @@ class HomeController extends Controller
     public function exeUpdate(PostRequest $request) {
       //商品情報データを受け取る
       $inputs = $request->all();
-
       \DB::beginTransaction();
       try {
         //商品情報を登録
         $product = Product::find($inputs['id']);
+        
         $product->fill([
           'product_name' => $inputs['product_name'],
-          'company_name' => $inputs['company_name'],
+          'company_id' => $inputs['company_name'],
           'price' => $inputs['price'],
           'stock' => $inputs['stock'],
           'comment' => $inputs['comment'],
@@ -115,5 +130,24 @@ class HomeController extends Controller
       \Session::flash('flash_message', '商品情報を更新しました');
       return redirect(route('home'));
     }
-
+    
+    /**
+     * 商品削除
+     * @param int $id
+     * @return view
+     */
+    public function exeDelete($id) {
+      if(empty($id)) {
+        \Session::flash('err_msg', 'データがありません');
+        return redirect(route('home'));
+      }
+      try {
+        //商品を削除する
+        Product::destroy($id);
+      } catch (\Throwable $e){
+        abort(500);
+      }
+      \Session::flash('err_msg', '削除しました');
+      return view('home');
+    }
 }
