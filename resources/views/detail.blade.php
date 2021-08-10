@@ -5,12 +5,7 @@
 <!--商品詳細-->
 <br>
 <div class="table-responsive">
-  <h2 class="text-center">商品詳細</h2>
-    @if (session('err_msg'))
-      <p class="text-danger">
-        {{ session('err_msg') }}
-      </p>
-    @endif
+  <h2 class="text-center">商品情報詳細</h2>
   <table class="table table-hover">
     <thead>
     <tr>
@@ -26,16 +21,16 @@
     </thead>
     <tbody id="tb1">
       <tr>
-        <td>{{ $product->id }}</td>
-        <td>{{ $product->img }}</td>
-        <td>{{ $product->product_name }}</td>
-        <td>{{ $product->price }}</td>
-        <td>{{ $product->stock }}</td>
-        <td>{{ $product->company->company_name }}</td>
-        <td>{{ $product->comment }}</td>
-        <td>{!! nl2br(e(Str::limit($product->message, 100))) !!}
+        <td>{{ $product_detail->id }}</td>
+        <td>{{ $product_detail->img }}</td>
+        <td>{{ $product_detail->product_name }}</td>
+        <td>{{ $product_detail->price }}</td>
+        <td>{{ $product_detail->stock }}</td>
+        <td>{{ $product_detail->company->company_name }}</td>
+        <td>{{ $product_detail->comment }}</td>
+        <td>{!! nl2br(e(Str::limit($product_detail->message, 100))) !!}
         <td class="text-nowrap">
-          <p><a href="route('detail')" class="btn btn-info btn-sm">編集</a></p>
+          <p><a href="/product/edit/{{ $product_detail->id }}" class="btn btn-info btn-sm">編集</a></p>
           <p><a href="route('home')" class="btn btn-secondary btn-sm">戻る</a></p>
         </td>
       </tr>

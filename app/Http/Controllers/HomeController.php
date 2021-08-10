@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Schema;
 use App\Http\Controllers\Controller,Session;
 use App\Models\Product;
 use App\Models\Company;
-use App\Models;
+use App\Models\User;
+use App\Models\Sale;
 
 class HomeController extends Controller
 {
@@ -28,9 +31,9 @@ class HomeController extends Controller
      */
     public function showHome() {
       $products = Product::all();
-      $companies = Company::all();
+      $company = Company::all();
       //dd($products);
-      return view('home', ['products' => $products], ['companies' => $companies]);
+      return view('home', ['products' => $products], ['company' => $company]);
     }
     
     /**
@@ -39,14 +42,14 @@ class HomeController extends Controller
      * @return view
      */
     public function showDetail($id) {
-      $product = Product::find($id);
+      $product_detail = Product::find($id);
       
-      if(is_null($product)) {
+      if(is_null($product_detail)) {
         \Session::flash('flash_message', 'データがありません');
         return redirect(route('home'));
       }
       
-      return view('detail', ['product' => $product]);
+      return view('detail', ['product_detail' => $product_detail]);
     }
     
     /**
@@ -65,7 +68,7 @@ class HomeController extends Controller
      */
     public function exeStore(PostRequest $request) {
       $inputs = $request->all();
-      $companies = Company::all();
+      $company = Company::all();
 
       \DB::beginTransaction();
       try {
@@ -94,14 +97,15 @@ class HomeController extends Controller
      * @return view
      */
     public function showEdit($id) {
-      $product = Product::find($id);
-
-      if(is_null($product)) {
+      $product_edit = Product::find($id);
+      $company = Company::all();
+      
+      if(is_null($product_edit)) {
         \Session::flash('err_msg', 'データがありません');
         return redirect(route('home'));
       }
       
-      return view('edit', ['product' => $product]);
+      return view('edit', ['product_edit' => $product_edit],['company' => $company]);
     }
     
     /**
@@ -111,7 +115,9 @@ class HomeController extends Controller
     public function exeUpdate(PostRequest $request) {
       //商品情報データを受け取る
       $inputs = $request->all();
+      $company = Company::all();
       \DB::beginTransaction();
+      //dd($inputs);
       try {
         //商品情報を登録
         $product = Product::find($inputs['id']);
@@ -140,8 +146,7 @@ class HomeController extends Controller
      */
     public function exeDelete($id) {
       if(empty($id)) {
-        \Session::flash('err_msg', 'データがありません');
-        return redirect(route('home'));
+        return redirect(route('home'))->with('err_msg', 'データがありません');
       }
       try {
         //商品を削除する
@@ -149,7 +154,6 @@ class HomeController extends Controller
       } catch (\Throwable $e){
         abort(500);
       }
-      \Session::flash('err_msg', '削除しました');
-      return view('home');
+      return view('home')->with('err_msg', '削除しました');
     }
 }

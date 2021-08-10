@@ -9,30 +9,33 @@
   <div class="mx-auto">
     <br>
     <h2 class="text-center">商品検索</h2>
+    @if (Session::has('message'))
+      <p>{{ session('message') }}</p>
+    @endif
     <br>
     <!--検索フォーム-->
     <div class="row">
       <div class="col-sm">
-        <form method="POST" action="">
+        <form>
           @csrf
-          {{ method_field('post') }}
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">商品名</label>
             <!--入力-->
             <div class="col-sm-5">
-              <input type="text" class="form-control" name="searchWord" placheholder="検索したい名前を入力してください">
+              <input type="search" value="{{ $search_product }}" class="form-control" name="product_name">
             </div>
             <div class="col-sm-auto">
               <button type="submit" class="btn btn-primary">検索</button>
             </div>
-          </div>     
+          </div>
+      
           <!--プルダウンカテゴリ選択-->
           <div class="form-group row">
             <label class="col-sm-2">メーカー名</label>
             <div class="col-sm-3">
               <select name="company_name" class="form-control" >
-                <option value="">未選択</option>
-                @foreach($companies as $company)
+                <option value="{{ $search_company }}" selected>未選択</option>
+                @foreach($company as $company)
                   <option value="{{ $company->company_name }}">
                   {{ $company->company_name }}
                   </option>  
@@ -45,6 +48,7 @@
     </div>
   </div>
 </div>
+
 <!--商品一覧-->
 <div class="table-responsive">
   <div class="col-sm-auto title-btn-box">
@@ -71,7 +75,7 @@
           <td>{{ $product->product_name }}</td>
           <td>{{ $product->price }}</td>
           <td>{{ $product->stock }}</td>
-          <td>{{ $product->company->company_name }}</td>
+          <td>{{ $product->company['company_name'] }}</td>
           <td>{!! nl2br(e(Str::limit($product->message, 100))) !!}
           <td class="text-nowrap">
             <p><a href="/detail/{{ $product->id }}" class="btn btn-primary btn-sm">詳細</a></p>

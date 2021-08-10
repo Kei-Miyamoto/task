@@ -9,24 +9,22 @@ class SearchController extends Controller
 {
     public function search(Request $request) {
       $query = Product::query();
+      $company = Company::query();
 
       //$request->input()で検索時に入力した項目を取得
-      $search1 = $request->input('productName');
-      $search2 = $request->input('companyName');
-
-      //プルダウンメニューで指定なし以外を選択した場合、$query->whereで選択した会社名と一致するからむ
-       if ($request->has('companyName') && $search2 !=('指定なし')) {
-         $query->where('companyName', $search2)->get();
-       }
+      $search_product = $request->input('product_name');
+      $search_company = $request->input('company_name');
 
        //検索フォームで入力した文字列を含むカラムを取得
-       if($request->has('productName') && $search1 != '') {
-         $query->where('productName', 'like', '%'.$search3.'%')->get();
-       }
+      if (!empty($search_product)) {
+        $query->where('product_name','like','%'.$search_product.'%')->get();
+      }
+      //プルダウンメニューで指定なし以外を選択した場合、$query->whereで選択した会社名と一致するからむ
+      if($request->has('company_name') && $search_company != '未選択') {
+        $query->where('company_name', $search)->get();
+      }
 
-       //商品を1ページにつき10件ずつ表示させる
-       $data = $query->paginate(10);
   
-       return view('/home',['data' => $data]);
+      return view('/home',['data' => $data]->with(['product_name','$search_product'],['company_name','$search_company']));
     }
 }

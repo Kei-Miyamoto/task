@@ -19,7 +19,6 @@ Route::get('/', function () {
 });
 
 
-Route::group(['middleware' => 'web'], function() {
   //ログイン後ホーム（商品一覧検索画面）
   Route::get('/home', [App\Http\Controllers\HomeController::class, 'showHome'])->name('home');
   
@@ -44,5 +43,3 @@ Route::group(['middleware' => 'web'], function() {
   Route::post('/product/delete/{id}',[App\Http\Controllers\HomeController::class,'exeDelete'])->name('delete');
 
   Auth::routes();
-  
-}); 
