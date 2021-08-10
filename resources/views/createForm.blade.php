@@ -24,9 +24,9 @@
         <div class="col-sm-3">
           <select name="company_name" class="form-control" required>
             <option value="">未選択</option>
-            @foreach($product->unique('company_id') as $product)
-            <option value="{{ $product->company->company_name }}">
-              {{ $product->company->company_name }}
+            @foreach($company as $company)
+            <option value="{{ $company->company_name }}">
+              {{ $company->company_name }}
             </option>  
             @endforeach 
           </select>

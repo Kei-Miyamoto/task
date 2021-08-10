@@ -32,7 +32,7 @@ class HomeController extends Controller
       //dd($products);
       return view('home', ['products' => $products], ['companies' => $companies]);
     }
-
+    
     /**
      * 商品詳細を表示
      * @param int $id
@@ -40,7 +40,7 @@ class HomeController extends Controller
      */
     public function showDetail($id) {
       $product = Product::find($id);
-
+      
       if(is_null($product)) {
         \Session::flash('flash_message', 'データがありません');
         return redirect(route('home'));
@@ -48,22 +48,24 @@ class HomeController extends Controller
       
       return view('detail', ['product' => $product]);
     }
-
+    
     /**
      * 商品情報登録画面を表示
      * @return view
      */
     public function showCreate() {
       $product = Product::all();
-      return view('createForm', ['product' => $product]);
+      $company = Company::all();
+      return view('createForm', ['product' => $product],['company' => $company]);
     }
-
+    
     /**
      * 商品情報を登録する
      * @return view
      */
     public function exeStore(PostRequest $request) {
       $inputs = $request->all();
+      $companies = Company::all();
 
       \DB::beginTransaction();
       try {
