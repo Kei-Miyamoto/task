@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\paginator;
+use Illuminate\Support\Facades\Blade;
+use resource\views\vendor\pagination;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+      Paginator::useBootstrap();
+      //paginator::defaultView('pagination.simple-default');
     }
 }

@@ -16,7 +16,7 @@
     <!--検索フォーム-->
     <div class="row">
       <div class="col-sm">
-        <form>
+        <form method="GET" action="{{ route('home') }}">
           @csrf
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">商品名</label>
@@ -34,10 +34,10 @@
             <label class="col-sm-2">メーカー名</label>
             <div class="col-sm-3">
               <select value="search_comany_name" name="search_company_name" class="form-control" >
-                <option value="{{ $companies }}" selected>未選択</option>
-                @foreach($companies as $id => $company_name)
-                  <option value="{{ $id }}">
-                  {{ $company_name }}
+                <option  selected>未選択</option>
+                @foreach($companies as  $company)
+                  <option>
+                  {{ $company->company_name }}
                   </option>  
                 @endforeach
               </select>
@@ -75,7 +75,7 @@
           <td>{{ $product->product_name }}</td>
           <td>{{ $product->price }}</td>
           <td>{{ $product->stock }}</td>
-          <td>{{ $product->company['company_name'] }}</td>
+          <td>{{ $product->company_name }}</td>
           <td>{!! nl2br(e(Str::limit($product->message, 100))) !!}
           <td class="text-nowrap">
             <p><a href="/detail/{{ $product->id }}" class="btn btn-primary btn-sm">詳細</a></p>
@@ -89,6 +89,9 @@
       @endforeach
     </tbody>
   </table>
+
+{{ $products->onEachSide(5)->links('pagination::bootstrap-4') }}
+
 </div>
 <script>
 function checkDelete(){

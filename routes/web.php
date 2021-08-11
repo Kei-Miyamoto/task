@@ -23,7 +23,7 @@ Route::get('/', function () {
   Route::get('/home', [App\Http\Controllers\HomeController::class, 'showHome'])->name('home');
   
   //検索結果表示
-  Route::get('/search', [App\Http\Controllers\SearchController::class, 'showSearch'])->name('search');
+  Route::get('/search', [App\Http\Controllers\HomeController::class, 'showSearch'])->name('search');
   
   //商品登録画面
   Route::get('/product/create',[App\Http\Controllers\HomeController::class,'showCreate'])->name('create');
