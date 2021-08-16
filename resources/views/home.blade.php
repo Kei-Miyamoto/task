@@ -7,11 +7,22 @@
 <!--商品検索-->
 <div class="container">
   <div class="mx-auto">
+    <script>
+    //成功時
+      @if (Session::has('msg_success'))
+        $(function() {
+          toastr.success('{{ session('msg_success') }}');
+        });
+      @endif
+      //失敗時
+      @if (Session::has('msg_error'))
+        $(function() {
+          toastr.error('{{ session('msg_error') }}');
+        });
+      @endif
+    </script>
     <br>
     <h2 class="text-center">商品検索</h2>
-    @if (Session::has('message'))
-      <p>{{ session('message') }}</p>
-    @endif
     <br>
     <!--検索フォーム-->
     <div class="row">
@@ -35,10 +46,10 @@
             <div class="col-sm-3">
               <select value="search_comany_name" name="search_company_name" class="form-control" >
                 <option  selected>未選択</option>
-                @foreach($companies as  $company)
-                  <option>
+                @foreach($companies as $company)
+                <option>
                   {{ $company->company_name }}
-                  </option>  
+                </option>  
                 @endforeach
               </select>
             </div>
@@ -79,12 +90,12 @@
           <td>{!! nl2br(e(Str::limit($product->message, 100))) !!}
           <td class="text-nowrap">
             <p><a href="/detail/{{ $product->id }}" class="btn btn-primary btn-sm">詳細</a></p>
-            <p><a href="/product/edit/{{ $product->id }}" class="btn btn-info btn-sm">編集</a></p>
+            
             <form method="POST" action="{{ route('delete', $product->id) }}" onSubmit="return checkDelete()">
             @csrf
-            <button href="" class="btn btn-danger btn-sm">削除</button>
+              <button href="" class="btn btn-danger btn-sm">削除</button>
+            </form>
           </td>
-          </form>
         </tr>
       @endforeach
     </tbody>

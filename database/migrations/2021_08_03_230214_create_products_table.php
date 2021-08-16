@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id')->unsigned();//商品ID
             $table->bigInteger('company_id')->unsigned();//会社ID
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');//紐付け
+     
             $table->string('product_name');
             $table->integer('price');
             $table->integer('stock');

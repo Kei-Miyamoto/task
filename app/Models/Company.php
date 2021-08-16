@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Eloquent;
 
 class Company extends Model
 {
@@ -18,7 +19,11 @@ class Company extends Model
     protected $guarded = array('id');
     
     public function products() {
-      //return $this->hasMany('App\Models\Product', 'id', 'company_id');
-      return $this->hasMany(Product::class);
+      return $this->hasMany('App\Models\Product');
+    }
+
+    public function getCompany() {
+      $getCompanyName = Company::pluck('company_name', 'id');
+      return $getCompanyName;
     }
   }

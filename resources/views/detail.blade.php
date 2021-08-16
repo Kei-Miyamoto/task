@@ -31,7 +31,7 @@
         <td>{!! nl2br(e(Str::limit($product_detail->message, 100))) !!}
         <td class="text-nowrap">
           <p><a href="/product/edit/{{ $product_detail->id }}" class="btn btn-info btn-sm">編集</a></p>
-          <p><a href="route('home')" class="btn btn-secondary btn-sm">戻る</a></p>
+          <p><a href="/home" class="btn btn-secondary btn-sm">戻る</a></p>
         </td>
       </tr>
     </tbody>

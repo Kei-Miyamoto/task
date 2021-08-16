@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Eloquent;
 
 class Product extends Model
 {
@@ -13,16 +14,16 @@ class Product extends Model
     protected $fillable = [
       'company_id',
       'product_name',
+      'price',
       'stock',
       'comment',
   ];
     
     protected $guarded = [
-      'price'
     ];
 
     public function company() {
-      return $this->belongsTo(Company::class,'id');
+      return $this->belongsTo('App\Models\Company');
     }
 
     public function sales () {
