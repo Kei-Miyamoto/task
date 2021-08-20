@@ -160,7 +160,6 @@ return [
       'stock' => '在庫数',
       'comment' => 'コメント',
       'image' => '商品画像',
-      'dimensions' => '画像の比率は1：1で横は最大300pxです',
     ],
 
 ];

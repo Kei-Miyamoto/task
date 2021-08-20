@@ -28,7 +28,6 @@ class PostRequest extends FormRequest
         'price' => 'required|regex:/^[0-9]+$/',
         'stock' => 'required|regex:/^[0-9]+$/',
         'comment' => 'required',
-        'image' => 'required|image|mimes:png,jpg,gif,svg,bmp|max:1024|dimensions:max-witdth=300,ratio=1/1',
         ];
     }
 }

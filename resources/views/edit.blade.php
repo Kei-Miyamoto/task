@@ -14,6 +14,13 @@
       <input type="hidden" name="id" value="{{ $product_edit->id }}">
       
       <div class="form-group row">
+        <label class="col-sm-2" for="product_id">商品情報ID</label>
+        <div class="col-sm-5">
+          <input name="product_id" class="form-control" type="text" value="{{ $product_edit->id }}" readonly>
+        </div>
+      </div>
+
+      <div class="form-group row">
         <label class="col-sm-2" for="product_name">商品名</label>
         <div class="col-sm-5">
           <input name="product_name" class="form-control" type="text" value="{{ $product_edit->product_name }}">

@@ -29,11 +29,6 @@
         <div class="col-sm-5">
           <input name="image" class="form-control-file" type="file" id="image" value="">
         </div>
-        @if ($errors->has('image'))
-          <div class="text-danger">
-            {{ $errors->first('image') }}
-          </div>
-        @endif
       </div>
 
       <div class="form-group row">

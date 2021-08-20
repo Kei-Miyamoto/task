@@ -122,9 +122,8 @@ class HomeController extends Controller
         $companyId = Product::select('company_id')->leftJoin('companies', 'products.company_id', '=', 'companies.id')
         ->where('company_name',$request['company_name'])
         ->get();
-
+        
         $image = $request->file('image');
-        //dd($image);
         //画像がアップレードされていればstorageに保存
         if($request->hasFile('image')) {
           $path = \Storage::put('/public', $image);
@@ -132,28 +131,38 @@ class HomeController extends Controller
         }else {
           $path = null;
         }
-
+        
         $company_id = $companyId[0]->company_id;
         $product = new Product;
 
-
-
-        $inputs = [
-          $product->product_name = $request->product_name,
-          $product->image = $path[1],
-          $product->company_id =  $company_id,
-          $product->price = $request->price,
-          $product->stock = $request->stock,
-          $product->comment = $request->comment
-        ];
+        //画像を登録する場合
+        if($request->hasFile('image')) {
+          $inputs = [
+            $product->product_name = $request->product_name,
+            $product->image = $path[1],
+            $product->company_id =  $company_id,
+            $product->price = $request->price,
+            $product->stock = $request->stock,
+            $product->comment = $request->comment
+          ];
+        }else {   //画像を登録しない場合
+          $inputs = [
+            $product->product_name = $request->product_name,
+            $product->company_id =  $company_id,
+            $product->price = $request->price,
+            $product->stock = $request->stock,
+            $product->comment = $request->comment
+          ];
+        }
         
+        //dd($inputs);
         $product->fill($inputs)->save();
 
         \DB::commit();
         \Session::flash('msg_success', '商品情報を登録しました');
       } catch (\Throwable $e){
         \DB::rollback();
-        abort(500);
+        //abort(500);
         \Session::flash('msg_error', '商品情報を登録に失敗しました');
       } 
       return redirect(route('home'));
@@ -190,29 +199,40 @@ class HomeController extends Controller
           ->get();
 
         $image = $request->file('image');
-        //dd($image);
+        $company_id = $companyId[0]->company_id;
         //画像がアップレードされていればstorageに保存
         if($request->hasFile('image')) {
           $path = \Storage::put('/public', $image);
           $path = explode('/', $path);
-        }else {
+          
+          $inputs = [
+            $product_edit->id = $request->id,
+            $product_edit->product_name = $request->product_name,
+            $product_edit->company_id =  $company_id,
+            $product_edit->image = $path[1],
+            $product_edit->price = $request->price,
+            $product_edit->stock = $request->stock,
+            $product_edit->comment = $request->comment
+          ];
+          
+        }else { //画像がアップロードされていない時
           $path = null;
+          $inputs = [
+            $product_edit->id = $request->id,
+            $product_edit->product_name = $request->product_name,
+            $product_edit->image = $path,
+            $product_edit->company_id =  $company_id,
+            $product_edit->price = $request->price,
+            $product_edit->stock = $request->stock,
+            $product_edit->comment = $request->comment
+          ];
         }
-        $deleteImg = Product::find($inputs['id']);
+        
+        $deleteImg = Product::find($product_edit->id);
         $deleteName = $deleteImg->image;
         Storage::delete('public/'. $deleteName);
-
-        $company_id = $companyId[0]->company_id;
-        $inputs = [
-          $product_edit->product_name = $request->product_name,
-          $product_edit->company_id =  $company_id,
-          $product_edit->image = $path[1],
-          $product_edit->price = $request->price,
-          $product_edit->stock = $request->stock,
-          $product_edit->comment = $request->comment
-        ];
         $product_edit->fill($inputs)->save();
-
+        //dd($inputs);
         \DB::commit();
         \Session::flash('msg_success', '商品情報を更新しました');
       } catch (\Throwable $e){
