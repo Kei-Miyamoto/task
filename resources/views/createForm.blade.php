@@ -88,7 +88,7 @@
 
       <div class="mt-5">
         <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('home') }}'">戻る</button>
-        <button type="submit" class="btn btn-primary">登録する</button>
+        <button type="submit" class="btn btn-primary">登録</button>
       </div>
     </form>
   </div>

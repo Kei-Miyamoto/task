@@ -31,11 +31,8 @@ class HomeController extends Controller
      * 商品一覧を表示
      */
     public function showHome(Request $request) {
-      //$quesry = Product::query();
       $query = Product::query() and Company::query();
       //フォームを機能させるために各情報を取得viewに返す
-      //$company = Company::query();
-      //$product = Product::query();
       $companies = Company::orderBy('id', 'asc')->get(['company_name']);
       
       //$request->input()で検索時に入力した項目を取得

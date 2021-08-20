@@ -103,7 +103,7 @@
       
       <div class="mt-5">
         <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('home') }}'">戻る</button>
-        <button type="submit" class="btn btn-primary">更新する</button>
+        <button type="submit" class="btn btn-primary">更新</button>
       </div>
 
     </form>
