@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id')->unsigned();//商品ID
             $table->bigInteger('company_id')->unsigned();//会社ID
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');//紐付け
-            $table->string('image');//画像
+            $table->string('image')->nullable();//画像
             $table->string('product_name');
             $table->integer('price');
             $table->integer('stock');
@@ -36,5 +36,6 @@ class CreateProductsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('products');
+        $table->dropColumn('image');
     }
 }

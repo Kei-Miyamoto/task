@@ -66,15 +66,15 @@
     <h2 class="text-center product-title">商品一覧</h2>
     <p><a type="submit" class="btn btn-success btn-1" href="{{ route('create') }}">新規登録</a></p>
   </div>
-  <table class="table table-hover">
+  <table class="table table-hover" >
     <thead>
       <tr>
         <th>ID</th>
-        <th>商品画像</th>
-        <th>商品名</th>
+        <th style="">商品画像</th>
+        <th style="">商品名</th>
         <th>価格</th>
         <th>在庫数</th>
-        <th>メーカー名</th>
+        <th style=>メーカー名</th>
         <th colspan="2">管理</th>
       </tr>
     </thead>
@@ -82,7 +82,7 @@
       @foreach ($products as $product)
         <tr>
           <td>{{ $product->id }}</td>
-          <td>{{ $product->image }}</td>
+          <td class=""><img class="img-fluid" src="{{ '/storage/' . $product->image }}" class="w-100 mb-3" /></td>
           <td>{{ $product->product_name }}</td>
           <td>{{ $product->price }}</td>
           <td>{{ $product->stock }}</td>

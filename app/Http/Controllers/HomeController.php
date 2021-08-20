@@ -6,7 +6,7 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage; 
 use App\Http\Controllers\Schema;
 use App\Http\Controllers\Controller,Session;
 use Illuminate\Pagination\paginator;
@@ -122,6 +122,7 @@ class HomeController extends Controller
         $companyId = Product::select('company_id')->leftJoin('companies', 'products.company_id', '=', 'companies.id')
         ->where('company_name',$request['company_name'])
         ->get();
+
         $image = $request->file('image');
         //dd($image);
         //画像がアップレードされていればstorageに保存
@@ -139,7 +140,7 @@ class HomeController extends Controller
 
         $inputs = [
           $product->product_name = $request->product_name,
-          $product->image = $request->image,
+          $product->image = $path[1],
           $product->company_id =  $company_id,
           $product->price = $request->price,
           $product->stock = $request->stock,
@@ -149,11 +150,12 @@ class HomeController extends Controller
         $product->fill($inputs)->save();
 
         \DB::commit();
+        \Session::flash('msg_success', '商品情報を登録しました');
       } catch (\Throwable $e){
         \DB::rollback();
         abort(500);
+        \Session::flash('msg_error', '商品情報を登録に失敗しました');
       } 
-      \Session::flash('msg_success', '商品情報を登録しました');
       return redirect(route('home'));
     }
 
@@ -186,11 +188,25 @@ class HomeController extends Controller
         $companyId = DB::table('products')->select('company_id')->leftJoin('companies', 'products.company_id', '=', 'companies.id')
           ->where('company_name', '=', $request['company_name'])
           ->get();
-        $company_id = $companyId[0]->company_id;
 
+        $image = $request->file('image');
+        //dd($image);
+        //画像がアップレードされていればstorageに保存
+        if($request->hasFile('image')) {
+          $path = \Storage::put('/public', $image);
+          $path = explode('/', $path);
+        }else {
+          $path = null;
+        }
+        $deleteImg = Product::find($inputs['id']);
+        $deleteName = $deleteImg->image;
+        Storage::delete('public/'. $deleteName);
+
+        $company_id = $companyId[0]->company_id;
         $inputs = [
           $product_edit->product_name = $request->product_name,
           $product_edit->company_id =  $company_id,
+          $product_edit->image = $path[1],
           $product_edit->price = $request->price,
           $product_edit->stock = $request->stock,
           $product_edit->comment = $request->comment
@@ -201,8 +217,8 @@ class HomeController extends Controller
         \Session::flash('msg_success', '商品情報を更新しました');
       } catch (\Throwable $e){
         \DB::rollback();
-        abort(500);
-        \Session::flash('msg_error', '商品情報を更に失敗しました');
+        //abort(500);
+        \Session::flash('msg_error', '商品情報の更新に失敗しました');
       } 
       return redirect(route('home'));
     }
@@ -219,7 +235,10 @@ class HomeController extends Controller
       }
       try {
         //商品を削除する
+        $deleteImg = Product::find($id);
+        $deleteName = $deleteImg->image;
         Product::destroy($id);
+        Storage::delete('public/'. $deleteName);
       } catch (\Throwable $e){
         abort(500);
       }

@@ -22,7 +22,7 @@
     <tbody id="tb1">
       <tr>
         <td>{{ $product_detail->id }}</td>
-        <td>{{ $product_detail->image }}</td>
+        <td><img src="{{ '/storage/' . $product_detail->image }}" class="w-100 mb-3" /></td>
         <td>{{ $product_detail->product_name }}</td>
         <td>{{ $product_detail->price }}</td>
         <td>{{ $product_detail->stock }}</td>
