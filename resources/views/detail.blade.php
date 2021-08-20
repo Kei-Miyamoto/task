@@ -22,7 +22,7 @@
     <tbody id="tb1">
       <tr>
         <td>{{ $product_detail->id }}</td>
-        <td>{{ $product_detail->img }}</td>
+        <td>{{ $product_detail->image }}</td>
         <td>{{ $product_detail->product_name }}</td>
         <td>{{ $product_detail->price }}</td>
         <td>{{ $product_detail->stock }}</td>

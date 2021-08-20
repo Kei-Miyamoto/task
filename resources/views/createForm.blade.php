@@ -6,10 +6,11 @@
 <div class="create-container">
   <div class="create-box">
     <h2>商品情報登録フォーム</h2>
+    <br>
     @if (Session::has('flash_message'))
       <p>{{ session('flash_message') }}</p>
     @endif
-    <form method="POST" action="{{ route('store') }}" onSubmit="return checkSubmit()">
+    <form method="POST" action="{{ route('store') }}" onSubmit="return checkSubmit()" enctype="multipart/form-data">
       @csrf
       <div class="form-group row">
         <label class="col-sm-2" for="product_name">商品名</label>
@@ -19,6 +20,18 @@
         @if ($errors->has('product_name'))
           <div class="text-danger">
             {{ $errors->first('product_name') }}
+          </div>
+        @endif
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2" for="image">商品画像</label>
+        <div class="col-sm-5">
+          <input name="image" class="form-control-file" type="file" id="image" value="">
+        </div>
+        @if ($errors->has('image'))
+          <div class="text-danger">
+            {{ $errors->first('image') }}
           </div>
         @endif
       </div>

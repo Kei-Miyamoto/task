@@ -82,7 +82,7 @@
       @foreach ($products as $product)
         <tr>
           <td>{{ $product->id }}</td>
-          <td>{{ $product->img }}</td>
+          <td>{{ $product->image }}</td>
           <td>{{ $product->product_name }}</td>
           <td>{{ $product->price }}</td>
           <td>{{ $product->stock }}</td>

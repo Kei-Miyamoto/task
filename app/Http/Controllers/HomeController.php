@@ -57,8 +57,10 @@ class HomeController extends Controller
             'products.id as id',
             'products.product_name as product_name',
             'products.price as price',
+            'products.image as image',
             'products.stock as stock',
             'companies.company_name as company_name',
+            
           )
           ->orderBy('id','asc')
           ->leftJoin('companies', 'products.company_id', '=', 'companies.id')
@@ -118,19 +120,26 @@ class HomeController extends Controller
       try {
         $comopany = Company::all();
         $companyId = Product::select('company_id')->leftJoin('companies', 'products.company_id', '=', 'companies.id')
-        //with('company:company_id,company_name')->get();
         ->where('company_name',$request['company_name'])
         ->get();
-        
-        
-        //DB::table('products')->where('company_name', '=', $request['company_name'])
-        //->get();
-        
+        $image = $request->file('image');
+        //dd($image);
+        //画像がアップレードされていればstorageに保存
+        if($request->hasFile('image')) {
+          $path = \Storage::put('/public', $image);
+          $path = explode('/', $path);
+        }else {
+          $path = null;
+        }
+
         $company_id = $companyId[0]->company_id;
         $product = new Product;
 
+
+
         $inputs = [
           $product->product_name = $request->product_name,
+          $product->image = $request->image,
           $product->company_id =  $company_id,
           $product->price = $request->price,
           $product->stock = $request->stock,
@@ -204,7 +213,7 @@ class HomeController extends Controller
      * @return view
      */
     public function exeDelete($id) {
-      if(empty($id)) {
+      if(is_null($id)) {
         \Session::flash('msg_error', 'データがありません');
         return redirect(route('home'));
       }
