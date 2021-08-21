@@ -15,12 +15,21 @@ use App\Http\Controllers\HomeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::group(['middleware' => ['guest']], function() {
+  //ログインフォーム表示
+  Route::get('/', [AuthController::class, 'showLogin'])->name('showLogin');
+  //ログイン処理
+  Route::post('login', [AuthController::class, 'login'])->name('login');
+  //新規登録フォーム表示
+  Route::get('registerForm', [AuthController::class, 'showRegister'])->name('showRegister');
+  //新規登録処理
+  Route::post('register', [AuthController::class, 'register'])->name('register');
+});
 
-//ログイン処理
-Route::get('/', [AuthController::class, 'showLogin'])->name('showLogin');
-Route::post('login', [AuthController::class, 'login'])->name('login');
 
-
+Route::group(['middleware' => ['auth']], function() {
+  //ログアウト
+  Route::post('logout',[AuthController::class,'logout'])->name('logout');
   //ログイン後ホーム（商品一覧検索画面）
   Route::get('/home', [HomeController::class, 'showHome'])->name('home');
   
@@ -43,5 +52,6 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
   
   //商品削除
   Route::post('/product/delete/{id}',[HomeController::class,'exeDelete'])->name('delete');
+});
 
-  Auth::routes();
+  //Auth::routes();

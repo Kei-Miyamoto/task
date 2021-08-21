@@ -160,6 +160,8 @@ return [
       'stock' => '在庫数',
       'comment' => 'コメント',
       'image' => '商品画像',
+      'email' => 'メールアドレス',
+      'password' => 'パスワード',
     ],
 
 ];
