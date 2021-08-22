@@ -19,11 +19,11 @@ Route::group(['middleware' => ['guest']], function() {
   //ログインフォーム表示
   Route::get('/', [AuthController::class, 'showLogin'])->name('showLogin');
   //ログイン処理
-  Route::post('login', [AuthController::class, 'login'])->name('login');
+  Route::post('/login', [AuthController::class, 'login'])->name('login');
   //新規登録フォーム表示
-  Route::get('registerForm', [AuthController::class, 'showRegister'])->name('showRegister');
+  Route::get('/registerForm', [AuthController::class, 'showRegister'])->name('showRegister');
   //新規登録処理
-  Route::post('register', [AuthController::class, 'register'])->name('register');
+  Route::post('/register', [AuthController::class, 'register'])->name('register');
 });
 
 

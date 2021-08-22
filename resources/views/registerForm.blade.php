@@ -23,7 +23,7 @@
     <div class="col-md-8">
       <br>
       <div class="card">
-        <form class="" method="POST" action="{{ route('login') }}">
+        <form class="" method="POST" action="{{ route('register') }}">
           @csrf
           <h5 class="card-header text-center">ユーザ新規登録画面</h1>
 
@@ -42,7 +42,7 @@
             <div class="form-group row">
               <label class="col-md-4 col-form-label text-md-center" for="">ユーザ名</label>
               <div class="col-md-6">
-                <input type="user_name" class="form-control" id="" name="user_name" value="{{ old('user_name') }}" placeholder="" required>
+                <input type="user_name" class="form-control" id="user_name" name="user_name" value="{{ old('user_name') }}" placeholder="" required>
               </div>
             </div>
               
@@ -50,7 +50,7 @@
             <div class="form-group row">
               <label class="col-md-4 col-form-label text-md-center" for="">メールアドレス</label>
               <div class="col-md-6">
-                <input type="email" class="form-control" id="" name="email" value="{{ old('email') }}" placeholder="" required>
+                <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" placeholder="" required>
               </div>
             </div>  
                 
@@ -58,7 +58,10 @@
             <div class="form-group row">
               <label class="col-md-4 col-form-label text-md-center" for="">パスワード</label>
               <div class="col-md-6">
-                <input type="password" class="form-control" id="password" name="pasword" placeholder="" required>
+                <input type="password" class="form-control" id="password" name="password" placeholder="" required>
+                <!--<span class="field-icon">
+                  <i toggle="password-field" class="mdi mdi-eye toggle-password"></i>
+                </span>-->
               </div>
             </div>
 

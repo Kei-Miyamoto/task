@@ -162,6 +162,7 @@ return [
       'image' => '商品画像',
       'email' => 'メールアドレス',
       'password' => 'パスワード',
+      'password_confirmation' => '確認用パスワード',
     ],
 
 ];

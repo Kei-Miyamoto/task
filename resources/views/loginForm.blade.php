@@ -40,7 +40,7 @@
             <div class="form-group row">
               <label class="col-md-4 col-form-label text-md-right" for="">メールアドレス</label>
               <div class="col-md-7">
-                <input type="email" class="form-control" id="" name="email" placeholder="" required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="" required>
               </div>
             </div>
             <br>
@@ -48,7 +48,7 @@
             <div class="form-group row">
               <label class="col-md-4 col-form-label text-md-right" for="">パスワード</label>
               <div class="col-md-7">
-                <input type="password" class="form-control" id="" name="password" placeholder="" required>
+                <input type="password" class="form-control" id="password" name="password" placeholder="" required>
               </div>
             </div>
             <br>
