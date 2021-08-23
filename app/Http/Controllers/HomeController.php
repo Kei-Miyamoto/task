@@ -48,34 +48,28 @@ class HomeController extends Controller
         $query->from('companies')->where('company_name', $search_company_name )->get();
       }
       
+      //$queryをproduct_id順に並び替えて$productsに代入
+      $products = $query->from('products')->select(
+        'products.id as id',
+        'products.product_name as product_name',
+        'products.price as price',
+        'products.image as image',
+        'products.stock as stock',
+        'companies.company_name as company_name',
         
-          //$queryをproduct_id順に並び替えて$productsに代入
-          $products = $query->from('products')->select(
-            'products.id as id',
-            'products.product_name as product_name',
-            'products.price as price',
-            'products.image as image',
-            'products.stock as stock',
-            'companies.company_name as company_name',
-            
-          )
-          ->orderBy('id','asc')
-          ->leftJoin('companies', 'products.company_id', '=', 'companies.id')
-          ->paginate(5);
-            
-          //dd($request);
-    
-          return view('home',[
-            'products' => $products,
-            'companies' => $companies,
-            'search_product_name' => $search_product_name,
-            'search_company_name' => $search_company_name,
-          ]);
-
+      )
+      ->orderBy('id','asc')
+      ->leftJoin('companies', 'products.company_id', '=', 'companies.id')
+      ->paginate(5);
+        
+      //dd($request);
+      return view('home',[
+        'products' => $products,
+        'companies' => $companies,
+        'search_product_name' => $search_product_name,
+        'search_company_name' => $search_company_name,
+      ]);
       }
-    
-
-
 
     //セキュリティ対策
     public static function escapeLike($str) {
@@ -99,73 +93,6 @@ class HomeController extends Controller
     }
     
     /**
-     * 商品情報登録画面を表示
-     * @return view
-     */
-    public function showCreate() {
-      $product = Product::all();
-      $company = Company::all();
-      return view('createForm', ['product' => $product],['company' => $company]);
-    }
-    
-    /**
-     * 商品情報を登録する
-     * @return view
-     */
-    public function exeStore(PostRequest $request) {
-      \DB::beginTransaction();
-      try {
-        $comopany = Company::all();
-        $companyId = Product::select('company_id')->leftJoin('companies', 'products.company_id', '=', 'companies.id')
-        ->where('company_name',$request['company_name'])
-        ->get();
-        
-        $image = $request->file('image');
-        //画像がアップレードされていればstorageに保存
-        if($request->hasFile('image')) {
-          $path = \Storage::put('/public', $image);
-          $path = explode('/', $path);
-        }else {
-          $path = null;
-        }
-        
-        $company_id = $companyId[0]->company_id;
-        $product = new Product;
-
-        //画像を登録する場合
-        if($request->hasFile('image')) {
-          $inputs = [
-            $product->product_name = $request->product_name,
-            $product->image = $path[1],
-            $product->company_id =  $company_id,
-            $product->price = $request->price,
-            $product->stock = $request->stock,
-            $product->comment = $request->comment
-          ];
-        }else {   //画像を登録しない場合
-          $inputs = [
-            $product->product_name = $request->product_name,
-            $product->company_id =  $company_id,
-            $product->price = $request->price,
-            $product->stock = $request->stock,
-            $product->comment = $request->comment
-          ];
-        }
-        
-        //dd($inputs);
-        $product->fill($inputs)->save();
-
-        \DB::commit();
-        \Session::flash('msg_success', '商品情報を登録しました');
-      } catch (\Throwable $e){
-        \DB::rollback();
-        //abort(500);
-        \Session::flash('msg_error', '商品情報を登録に失敗しました');
-      } 
-      return redirect(route('home'));
-    }
-
-    /**
      * 商品編集フォームを表示
      * @param int $id
      * @return view
@@ -180,64 +107,6 @@ class HomeController extends Controller
       }
       
       return view('edit', ['product_edit' => $product_edit],['company' => $company]);
-    }
-    
-    /**
-     * 商品情報を更新する
-     * @return view
-     */
-    public function exeUpdate(PostRequest $request) {
-      \DB::beginTransaction();
-      try {
-        $inputs = $request->all();
-        $product_edit = Product::find($inputs['id']);
-        $companyId = DB::table('products')->select('company_id')->leftJoin('companies', 'products.company_id', '=', 'companies.id')
-          ->where('company_name', '=', $request['company_name'])
-          ->get();
-
-        $image = $request->file('image');
-        $company_id = $companyId[0]->company_id;
-        //画像がアップレードされていればstorageに保存
-        if($request->hasFile('image')) {
-          $path = \Storage::put('/public', $image);
-          $path = explode('/', $path);
-          
-          $inputs = [
-            $product_edit->id = $request->id,
-            $product_edit->product_name = $request->product_name,
-            $product_edit->company_id =  $company_id,
-            $product_edit->image = $path[1],
-            $product_edit->price = $request->price,
-            $product_edit->stock = $request->stock,
-            $product_edit->comment = $request->comment
-          ];
-          
-        }else { //画像がアップロードされていない時
-          $path = null;
-          $inputs = [
-            $product_edit->id = $request->id,
-            $product_edit->product_name = $request->product_name,
-            $product_edit->image = $path,
-            $product_edit->company_id =  $company_id,
-            $product_edit->price = $request->price,
-            $product_edit->stock = $request->stock,
-            $product_edit->comment = $request->comment
-          ];
-        }
-        
-        $deleteImg = Product::find($product_edit->id);
-        $deleteName = $deleteImg->image;
-        Storage::delete('public/'. $deleteName);
-        $product_edit->fill($inputs)->save();
-        //dd($inputs);
-        \DB::commit();
-        \Session::flash('msg_success', '商品情報を更新しました');
-      } catch (\Throwable $e){
-        \DB::rollback();
-        //abort(500);
-        \Session::flash('msg_error', '商品情報の更新に失敗しました');
-      } 
-      return redirect(route('home'));
     }
     
     /**

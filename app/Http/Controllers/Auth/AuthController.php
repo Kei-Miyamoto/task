@@ -30,54 +30,18 @@ class AuthController extends Controller
    */
   public function login(UserRequest $request) {
   
-
-    $email = $request->email;
-    //$users = User::query()->select('password')->where('email',$email)->get();
-    $users = DB::table('users')->select('password')->where('email',$email)->get();
-    //dd($users);
-    $hash_password = $users;
-    $pass = $request->password;
-    //自作ログイン機能
-    $try = Auth::user();
-    dd($try);
-    //if(Hash::check($pass, $hash_password)) {
-      //一致した時
-      if(Auth::attempt(['email'=>$email,'password'=>$pass])) {
-        \Session::flash('msg_success', 'ログイン成功しました');
-        return redirect()->route('home');
-      }else if(Hash::check($pass, $hash_password)){
-        \Session::flash('msg_success', 'ログイン成功しました');
-        return redirect()->route('home');
-        
-      } else {
-        //一致しなかった時
-        \Session::flash('msg_error', 'ログイン失敗しました');
-        return back()->withErrors([
-          'msg_error' => 'メールアドレスかパスワードが間違っています',
-        ]);
-
-      }
-      /* $user = Auth::user();*/
-      //$request->session()->regenerate();
-      
-      //dd($request);
-      
-    //}else {
-    //}
-       //認証情報取得
-
-      /* //動画見たやつ以下
-      
-      $credentials =$request->only('email', 'password');
+  
+    $credentials = $request->only('email','password');
     if (Auth::attempt($credentials)) {
       $request->session()->regenerate();
-      return redirect()->route('home')->with('msg_success', 'ログイン成功しました');
+      \Session::flash('msg_success', 'ログイン成功しました');
+      return redirect()->route('home');
     }
-    //dd($request);
     \Session::flash('msg_error', 'ログイン失敗しました');
     return back()->withErrors([
       'msg_error' => 'メールアドレスかパスワードが間違っています',
-    ]); */
+    ]);
+
   }
 
   /**
@@ -121,21 +85,20 @@ class AuthController extends Controller
       $inputs = [
         $user->user_name = $request->user_name,
         $user->email =  $request->email,
-        $user->password = $request->password =>Hash::make($request->newPassword),
+        $user->password = Hash::make($request->password),
       ];
       //dd($inputs);
+      //DBに保存
       $user->fill($inputs)->save();
-      //$this->guard()->login($user);
-      \Session::flash('msg_success', 'ユーザ登録に成功しました');
       \DB::commit();
+      \Session::flash('msg_success', 'ユーザ登録に成功しました');
     } catch (\Throwable $e){
       \DB::rollback();
-      //abort(500);
+      abort(500);
       \Session::flash('msg_error', 'ユーザ登録に失敗しました');
-      return redirect(route('showLogin'));
-      
+      return redirect(route('showRegister'));
     } 
-    return redirect(route('home'));
+    return redirect(route('showLogin'));
   }
   
   

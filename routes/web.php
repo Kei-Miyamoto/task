@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CreateController;
+use App\Http\Controllers\Detail_EditController;
 
 
 /*
@@ -37,18 +39,18 @@ Route::group(['middleware' => ['auth']], function() {
   Route::get('/search', [HomeController::class, 'showSearch'])->name('search');
   
   //商品登録画面
-  Route::get('/product/create',[HomeController::class,'showCreate'])->name('create');
+  Route::get('/product/create',[CreateController::class,'showCreate'])->name('create');
   //商品登録
-  Route::post('/product/store',[HomeController::class,'exeStore'])->name('store');
+  Route::post('/product/store',[CreateController::class,'exeStore'])->name('store');
   
   
   //商品詳細画面表示
-  Route::get('/detail/{id}',[HomeController::class,'showDetail'])->name('detail');
+  Route::get('/detail/{id}',[Detail_EditController::class,'showDetail'])->name('detail');
 
   //商品編集画面表示
-  Route::get('/product/edit/{id}',[HomeController::class,'showEdit'])->name('edit');
+  Route::get('/product/edit/{id}',[Detail_EditController::class,'showEdit'])->name('edit');
   //商品編集登録
-  Route::post('/product/update',[HomeController::class,'exeUpdate'])->name('update');
+  Route::post('/product/update',[Detail_EditController::class,'exeUpdate'])->name('update');
   
   //商品削除
   Route::post('/product/delete/{id}',[HomeController::class,'exeDelete'])->name('delete');
