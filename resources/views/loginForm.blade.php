@@ -45,10 +45,12 @@
             </div>
             <br>
 
-            <div class="form-group row">
+            <div class="form-group row boxxx">
               <label class="col-md-4 col-form-label text-md-right" for="">パスワード</label>
-              <div class="col-md-7">
-                <input type="password" class="form-control" id="password" name="password" placeholder="" required>
+              <div class="col-md-7 box-pass">
+                <input type="password" class="form-control js-password" id="password" name="password" placeholder="" required>
+                <input class="js-password-toggle button__input hidden-box" id="password--eye" type="checkbox" name="password-eye">
+                <label class="js-password-label button__label" for="password--eye"><i class="fas fa-eye"></i></label>
               </div>
             </div>
             <br>
@@ -62,7 +64,8 @@
       </div>
     </div>
 </div>
-
+<!-- パスワード非表示/表示 -->
+<script></script>
 </body>
 
 @endsection('content')

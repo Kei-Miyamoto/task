@@ -55,20 +55,21 @@
             </div>  
                 
               
-            <div class="form-group row">
+            <div class="form-group row boxxx">
               <label class="col-md-4 col-form-label text-md-center" for="">パスワード</label>
-              <div class="col-md-6">
-                <input type="password" class="form-control" id="password" name="password" placeholder="" required>
-                <!--<span class="field-icon">
-                  <i toggle="password-field" class="mdi mdi-eye toggle-password"></i>
-                </span>-->
+              <div class="col-md-6 box-pass">
+                <input type="password " class="form-control js-password eye-box" id="password" name="password" placeholder="" required>
+                <input class="js-password-toggle button__input hidden-box" id="password--eye" type="checkbox" name="password-eye">
+                <label class="js-password-label button__label" for="password--eye"><i class="fas fa-eye"></i></label>
               </div>
             </div>
-
-            <div class="form-group row">
+            
+            <div class="form-group row boxxx">
               <label class="col-md-4 col-form-label text-md-center" for="">確認用パスワード</label>
-              <div class="col-md-6">
+              <div class="col-md-6 box-pass">
                 <input type="password_confirmation" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="" required>
+                <input class="js-password-toggle button__input hidden-box" id="password_confirmation--eye" type="checkbox" name="password_eye">
+                <label class="js-password-label button__label" for="password_confirmation--eye"><i class="fas fa-eye"></i></label>
               </div>
             </div>
             
@@ -82,7 +83,8 @@
       </div>
     </div>
 </div>
-
+<!-- パスワード非表示/表示 -->
+<script></script>
 </body>
 
 @endsection('content')

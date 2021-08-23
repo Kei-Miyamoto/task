@@ -7,15 +7,21 @@
 })(); */
 
 //パスワードの表示・非表示切り替え
-$(".toggle-password").trigger("click"(function() {
-  //iconの切り替え  
-  $(this).toggleClass("mdi-eye mdi-eye-off");
-  //入力フォームの取得
-  let input = $(this).parent().prev("input");
-  //typeの切り替え
-  if (input.attr("type") === "password") {
-    input.attr("type","text");
-  }else {
-    input.attr("type","password");
-  }
-}));
+
+const passwordToggles = document.querySelectorAll('.js-password-toggle');
+
+passwordToggles.forEach((el) => {
+  el.addEventListener('change', function () {
+    const password = el.previousElementSibling,
+          passwordLabel = el.nextElementSibling;
+    if (password.type === 'password') {
+      password.type = 'text';
+      passwordLabel.innerHTML = '<i class="fas fa-eye-slash"></i>';
+    } else {
+      password.type = 'password';
+      passwordLabel.innerHTML = '<i class="fas fa-eye"></i>';
+    }
+    password.focus();
+  });
+});
+
