@@ -4,16 +4,13 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Illuminate\Http\Request;
-use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage; 
 use App\Http\Controllers\Schema;
-use App\Http\Controllers\Controller,Session;
 use Illuminate\Pagination\paginator;
 use App\Models\Product;
 use App\Models\Company;
-use App\Models\User;
-use App\Models\Sale;
+
 
 class HomeController extends Controller
 {
