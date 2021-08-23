@@ -10,8 +10,8 @@
     <thead>
     <tr>
         <th>ID</th>
-        <th>商品画像</th>
         <th>商品名</th>
+        <th>商品画像</th>
         <th>価格</th>
         <th>在庫数</th>
         <th>メーカー名</th>
@@ -22,8 +22,8 @@
     <tbody id="tb1">
       <tr>
         <td>{{ $product_detail->id }}</td>
-        <td><img src="{{ '/storage/' . $product_detail->image }}" class="w-100 mb-3" /></td>
         <td>{{ $product_detail->product_name }}</td>
+        <td><img src="{{ '/storage/' . $product_detail->image }}" class="w-100 mb-3" /></td>
         <td>{{ $product_detail->price }}</td>
         <td>{{ $product_detail->stock }}</td>
         <td>{{ $product_detail->company->company_name }}</td>

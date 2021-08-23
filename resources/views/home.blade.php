@@ -70,8 +70,8 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th style="">商品画像</th>
         <th style="">商品名</th>
+        <th style="">商品画像</th>
         <th>価格</th>
         <th>在庫数</th>
         <th style=>メーカー名</th>
@@ -82,8 +82,8 @@
       @foreach ($products as $product)
         <tr>
           <td>{{ $product->id }}</td>
-          <td class=""><img class="img-fluid" src="{{ '/storage/' . $product->image }}" class="w-100 mb-3" /></td>
           <td>{{ $product->product_name }}</td>
+          <td class=""><img class="img-fluid" src="{{ '/storage/' . $product->image }}" class="w-100 mb-3" /></td>
           <td>{{ $product->price }}</td>
           <td>{{ $product->stock }}</td>
           <td>{{ $product->company_name }}</td>
