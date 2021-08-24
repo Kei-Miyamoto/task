@@ -27,7 +27,7 @@
       <div class="form-group row">
         <label class="col-sm-2" for="image">商品画像</label>
         <div class="col-sm-5">
-          <input name="image" class="form-control-file" type="file" id="image" value="">
+          <input  name="image" class="form-control-file" type="file" accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png" id="image" value="">
         </div>
       </div>
 

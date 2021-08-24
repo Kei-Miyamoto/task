@@ -57,7 +57,7 @@ class HomeController extends Controller
       )
       ->orderBy('id','asc')
       ->leftJoin('companies', 'products.company_id', '=', 'companies.id')
-      ->paginate(5);
+      ->paginate(10);
         
       //dd($request);
       return view('home',[
