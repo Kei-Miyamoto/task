@@ -2,75 +2,86 @@
   margin-bottom: 15px;
   float: right;
 }
-
 .create-container {
   text-align: center;
   width: 100%;
   margin-top: 30px;
 }
-
 .create-box {
   text-align: center;
 }
-/*商品検索画面*/
+
+/* 商品検索画面 */
+.search-container {
+  display: flex;
+}
 .search-card {
+  margin: 0 auto;
   margin-top: 20px;
+  max-width: 700px;
   display: inline-block;
-  padding: 0;
+  text-align: center;
+  padding-right: 0px;
+  padding-left: 0px;
 }
 .search-card-header {
   width: 100%;
-  margin: 0;
 }
 .search-form {
   text-align: center;
   display: inline-block;
-  width: ;
-  margin: 0 auto;
 }
-
-.selectbox-box {
-  margin-bottom: 20px;
-} 
-/* 600以下共通 */
-@media(max-width: 600px) {
+.search-row-btm {
+  margin-bottom: 15px;
+}
+@media(min-width: 600px) {
+  .search-form {
+    width: 50%;
+  }
+}
+/* 780以下(タブレット)共通 */
+@media(max-width: 780px) {
+  .card {
+    max-width: 500px;
+  }
+  .card-body {
+    padding: 10px;
+  }
   .search-btn {
     display:flex;
     margin: 0 auto;
   }
+  .col-form-label {
+    padding: 0px;
+  }
 }
 
-/*商品一覧テーブル*/
+/* 商品一覧テーブル */
 th,td {
   text-align: center;
   border-bottom: 1px solid #ddd;
 }
-
 table .table-fix {
   position: relative;
 }
-
 .table-heading { /* 見出し */
   font-weight: normal;
   border-top: 0px;
   color: #666;
-  background-color: rgb(243, 212, 128);
+  background-color: #d4d9dc;
+  opacity: 0.8;
   top: 0;
   z-index: 1;
 }
-
-
 .table-fix th {
   position: -webkit-sticky;
   position: sticky;
 }
-
 img {
   width: 80px;
   display: block;
   margin: 0 auto;
 }
-
 @media(max-width: 500px) {
   .table-heading {
     display: none;
@@ -85,11 +96,9 @@ img {
     margin-bottom: 0px;
     display: inline-block;
   }
-  
   .text-nowrap form {
     display: inline-block;
   }
-  
   .adimin-btn {
     display: flex;
     margin: 0 auto;
@@ -97,23 +106,18 @@ img {
   }
 }
 
-
-
-/* パスワード表示非表示*/
+/* パスワード表示非表示 */
 .boxxx {
   display: flex;
   align-items: center;
 }
-
 .box-pass {
   width: 200px;
   position: relative;
 }
-
 .button__input {
   display: none;
 }
-
 .hidden-box {
   display: none;
 }
@@ -121,4 +125,23 @@ img {
   position: absolute;
   right: 25px;
   top: 8px;
+}
+/* 商品一覧画面 */
+.product-title {
+  margin-top: 20px;
+}
+/* スマホ以外の表 */
+@media(min-width: 481px) {
+  table tr:nth-child(odd) td {
+    background-color: #fff;
+  }
+  table tr:nth-child(even) td {
+    background-color: #d4d9dc;
+  }
+}
+/* スマホ用の表 */
+@media(max-width: 480px) {
+  table tr:nth-child() td.id{
+    background-color: #d4d9dc;
+  }
 }
