@@ -20,42 +20,40 @@
   @endif
 </script>
 <!--検索フォーム-->
-<div class="search-container">
-  <div class="col-sm card search-card">
-    <h4 class="text-center card-header search-card-header">商品検索</h2>
-    <div class="card-body">
-      <div class="search-form"> 
-        <form method="GET" action="{{ route('home') }}">
-          @csrf
-          <div class="form-group row search-row">
-            <label class="col-sm-4 col-form-label">商品名</label>
-            <!--入力-->
-            <div class="col-sm-8">
-              <input type="search" value="{{ $search_product_name }}" class="form-control" name="search_product_name">
+<div class="search-wrapper">
+  <div class="container search-container">
+    <div class="card search-card">
+      <h4 class="text-center card-header search-card-header">商品検索</h2>
+      <div class="card-body"">
+        <div class="search-form" > 
+          <form method="GET" action="{{ route('home') }}" style="display: grid;>
+            @csrf
+            <div class="form-group row search-row">
+              <label class="col-xs-12 col-sm-4 col-md-4 col-form-label">商品名</label>
+              <!--入力-->
+              <input type="search" value="{{ $search_product_name }}" class="col-xs-12 col-sm-8 col-md-8 form-control" name="search_product_name">
             </div>
-          </div>
-          
-          <!--プルダウンカテゴリ選択-->
-          <div class="form-group row search-row search-row-btm">
-            <label class="col-sm-4 col-form-label">メーカー名</label>
-            <div class="col-sm-8 selectbox-box">
-              <select value="search_comany_name" name="search_company_name" class="form-control" id="maker">
-                <option>未選択</option>
-                @foreach($companies as $company)
-                <option value="{{ $company->company_name }}"
-                  @if ($search_company_name == $company->company_name)
-                  selected
-                  @endif
-                  >{{ $company->company_name }}
-                </option>  
-                @endforeach
-              </select>
+            
+            <!--プルダウンカテゴリ選択-->
+            <div class="form-group row search-row search-row-btm">
+              <label class="col-xs-12 col-sm-4 col-md-4 col-form-label">メーカー名</label>
+                <select value="search_comany_name" name="search_company_name" class="col-xs-12 col-sm-8 col-md-8 form-control" id="maker">
+                  <option>未選択</option>
+                  @foreach($companies as $company)
+                  <option value="{{ $company->company_name }}"
+                    @if ($search_company_name == $company->company_name)
+                    selected
+                    @endif
+                    >{{ $company->company_name }}
+                  </option>  
+                  @endforeach
+                </select>
             </div>
-          </div>
-          <div class="col-sm-auto search-btn-box">
-            <button type="submit" class="btn btn-primary search-btn">検索</button>
-          </div>
-        </form>
+            <div class="col-sm-auto search-btn-box">
+              <button type="submit" class="btn btn-primary search-btn">検索</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>

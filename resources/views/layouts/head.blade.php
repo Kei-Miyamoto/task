@@ -20,6 +20,7 @@
     <!-- Styles -->
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <link href="{{ asset('css/home.css') }}" rel="stylesheet">
+<link href="{{ asset('css/createForm.css') }}" rel="stylesheet">
 <!-- Session logo -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 <!-- eye -->

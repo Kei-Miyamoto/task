@@ -1,0 +1,21 @@
+.search-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.search-container .search-card {
+  margin: 0 auto;
+  margin-top: 20px;
+  max-width: 700px;
+  display: inline-block;
+  text-align: center;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.search-container .search-card .search-card-header {
+  width: 100%;
+}
+/*# sourceMappingURL=style.css.map */
