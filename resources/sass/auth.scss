@@ -1,0 +1,20 @@
+/* パスワード表示非表示 */
+.boxxx {
+  display: flex;
+  align-items: center;
+}
+.box-pass {
+  width: 200px;
+  position: relative;
+}
+.button__input {
+  display: none;
+}
+.hidden-box {
+  display: none;
+}
+.button__label {
+  position: absolute;
+  right: 25px;
+  top: 8px;
+}

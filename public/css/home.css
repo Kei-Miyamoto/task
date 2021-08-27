@@ -1,130 +1,132 @@
-/* 新規登録ボタン */
-.btn-1 {
-  margin-bottom: 15px;
-  float: right;
-}
-
-/* 商品検索画面 */
-
-
-
-@media(min-width: 600px) {
-  .search-form {
-    width: 50%;
-  }
-}
-/* タブレット以下共通 */
-@media(max-width: 960px) {
-  .card {
-    max-width: 550px;
-  }
-  .card-body {
-    padding: 10px;
-  }
-  .search-btn {
-    display:flex;
-    margin: 0 auto;
-  }
-  .col-form-label {
-    padding: 0px;
-  }
-}
-
-/* 商品一覧テーブル */
-.table-responsive {
-  max-width: 1200px;
+.search-wrapper {
   margin: 0 auto;
-}
-th,td {
   text-align: center;
-  border-bottom: 1px solid #ddd;
 }
-table .table-fix {
-  position: relative;
-}
-.table-heading { /* 見出し */
-  font-weight: normal;
-  border-top: 0px;
-  color: #666;
-  background-color: #d4d9dc;
-  opacity: 0.8;
-  top: 0;
-  z-index: 1;
-}
-.table-fix th {
-  position: -webkit-sticky;
-  position: sticky;
-}
-img {
-  width: 80px;
-  display: block;
+
+.search-wrapper .search-container {
+  padding: 0px;
   margin: 0 auto;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
-@media(max-width: 500px) {
-  .table-heading {
-    display: none;
-  }
-  td {
-    display: block;
-  }
-  h2 {
+
+.search-wrapper .search-container .search-card {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+.search-wrapper .search-container .search-card .search-card-header {
+  width: 100%;
+}
+
+.search-wrapper .search-container .search-card .card-body {
+  padding: 10px;
+}
+
+.search-wrapper .search-container .search-card .card-body .search-form {
+  padding: 15px;
+}
+
+.search-wrapper .search-container .search-card .card-body .search-form .search-row {
+  padding: 10px;
+  margin: 15px;
+}
+
+.list-wrapper .list-container {
+  max-width: 1000px;
+}
+
+.list-wrapper .list-container .create-btn {
+  margin-right: 20px;
+}
+
+.list-wrapper .list-container .table {
+  text-align: center;
+  border: 0.13rem solid #626063;
+  max-width: 1000px;
+}
+
+.list-wrapper .list-container .table .table-heading .th-id {
+  width: 5%;
+}
+
+.list-wrapper .list-container .table .table-heading .th-name {
+  width: 18%;
+}
+
+.list-wrapper .list-container .table .table-heading .th-img {
+  width: 24%;
+}
+
+.list-wrapper .list-container .table .table-heading .th-price {
+  width: 10%;
+}
+
+.list-wrapper .list-container .table .table-heading .th-stock {
+  width: 10%;
+}
+
+.list-wrapper .list-container .table .table-heading .th-maker {
+  width: 18%;
+}
+
+.list-wrapper .list-container .table .table-heading .th-admin {
+  width: 15%;
+}
+
+.list-wrapper .list-container .table .product-img {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.list-wrapper .list-container .table tr, .list-wrapper .list-container .table td {
+  vertical-align: middle;
+}
+
+@media (max-width: 680px) {
+  .list-wrapper .list-container .table {
+    width: 100%;
     text-align: center;
   }
-  .text-nowrap p{
-    margin-bottom: 0px;
-    display: inline-block;
+  .list-wrapper .list-container .table thead {
+    display: none;
   }
-  .text-nowrap form {
-    display: inline-block;
+  .list-wrapper .list-container .table tr {
+    width: 100%;
   }
-  .adimin-btn {
+  .list-wrapper .list-container .table tr th {
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .list-wrapper .list-container .table td {
+    width: 100%;
+    display: block;
+    text-align: right;
+    valign: middle;
+  }
+  .list-wrapper .list-container .table td:first-child {
+    background-color: #6cb2eb;
+    counter-reset: #fff;
+    font-weight: bold;
+    text-align: center;
+  }
+  .list-wrapper .list-container .table td:before {
+    content: attr(data-label);
+    float: left;
+    font-weight: 500;
+    margin-right: 10px;
+  }
+  .list-wrapper .list-container .table .btn-row {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
+  }
+  .list-wrapper .list-container .table .btn-row p, .list-wrapper .list-container .table .btn-row form {
     margin: 0 auto;
-    padding-bottom: 0px;
   }
 }
-.product-title {
-  margin-top: 20px;
-}
-/* スマホ以外の表 */
-@media(min-width: 481px) {
-  table tr:nth-child(odd) td {
-    background-color: #fff;
-  }
-  table tr:nth-child(even) td {
-    background-color: #d4d9dc;
-  }
-}
-/* スマホ用の表 */
-@media(max-width: 767px) {
-  table td:nth-child() .id{
-    background-color: #d4d9dc;
-  }
-}
-/* PC用の表  */
-@media(min-width: 990px) {
-  table {
-    border: 2px gray solid;
-  }
-}
-
-/* パスワード表示非表示 */
-.boxxx {
-  display: flex;
-  align-items: center;
-}
-.box-pass {
-  width: 200px;
-  position: relative;
-}
-.button__input {
-  display: none;
-}
-.hidden-box {
-  display: none;
-}
-.button__label {
-  position: absolute;
-  right: 25px;
-  top: 8px;
-}
+/*# sourceMappingURL=home.css.map */

@@ -4,7 +4,10 @@
 
 @section('content')
   @parent
-<!--商品検索-->
+
+  
+<link href="{{ asset('css/home.css') }}" rel="stylesheet">
+  
 <script>
 //成功時
   @if (Session::has('msg_success'))
@@ -19,88 +22,85 @@
     });
   @endif
 </script>
+
 <!--検索フォーム-->
 <div class="search-wrapper">
   <div class="container search-container">
     <div class="card search-card">
       <h4 class="text-center card-header search-card-header">商品検索</h2>
-      <div class="card-body"">
-        <div class="search-form" > 
-          <form method="GET" action="{{ route('home') }}" style="display: grid;>
-            @csrf
-            <div class="form-group row search-row">
-              <label class="col-xs-12 col-sm-4 col-md-4 col-form-label">商品名</label>
-              <!--入力-->
-              <input type="search" value="{{ $search_product_name }}" class="col-xs-12 col-sm-8 col-md-8 form-control" name="search_product_name">
-            </div>
-            
-            <!--プルダウンカテゴリ選択-->
-            <div class="form-group row search-row search-row-btm">
-              <label class="col-xs-12 col-sm-4 col-md-4 col-form-label">メーカー名</label>
-                <select value="search_comany_name" name="search_company_name" class="col-xs-12 col-sm-8 col-md-8 form-control" id="maker">
-                  <option>未選択</option>
-                  @foreach($companies as $company)
-                  <option value="{{ $company->company_name }}"
-                    @if ($search_company_name == $company->company_name)
-                    selected
-                    @endif
-                    >{{ $company->company_name }}
-                  </option>  
-                  @endforeach
-                </select>
-            </div>
-            <div class="col-sm-auto search-btn-box">
-              <button type="submit" class="btn btn-primary search-btn">検索</button>
-            </div>
-          </form>
-        </div>
+      <div class="card-body">
+        <form method="GET" class="search-form" action="{{ route('home') }}">
+          @csrf
+          <div class="form-group row col- search-row">
+            <label class="col-xs-12 col-sm-4 col-md-4 col-form-label">商品名</label>
+            <!--入力-->
+            <input type="search" value="{{ $search_product_name }}" class="col-xs-12 col-sm-8 col-md-8 form-control" name="search_product_name">
+          </div>
+          
+          <!--プルダウンカテゴリ選択-->
+          <div class="form-group row search-row search-row-btm">
+            <label class="col-xs-12 col-sm-4 col-md-4 col-form-label">メーカー名</label>
+              <select value="search_comany_name" name="search_company_name" class="col-xs-12 col-sm-8 col-md-8 form-control" id="maker">
+                <option>未選択</option>
+                @foreach($companies as $company)
+                <option value="{{ $company->company_name }}"
+                  @if ($search_company_name == $company->company_name)
+                  selected
+                  @endif
+                  >{{ $company->company_name }}
+                </option>  
+                @endforeach
+              </select>
+          </div>
+          <div class="col-sm-auto search-btn-box">
+            <button type="submit" class="btn btn-primary search-btn">検索</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </div>
       
 <!--商品一覧-->
-<div class="table-responsive">
-  <div class="col-sm-auto title-btn-box">
+<div class="list-wrapper">
+  <div class="container list-container">
     <h4 class="text-center product-title">商品一覧</h2>
-    <p><a type="submit" class="btn btn-success btn-1" href="{{ route('create') }}">新規登録</a></p>
+    <p class="text-right"><a type="submit" class="btn btn-success create-btn" href="{{ route('create') }}">新規登録</a></p>
+    <table class="table  table-hover" >
+      <thead>
+        <tr  class="table-heading table-active">
+          <th class="th-id">ID</th>
+          <th class="th-name">商品名</th>
+          <th class="th-img">商品画像</th>
+          <th class="th-price">価格</th>
+          <th class="th-stock">在庫数</th>
+          <th class="th-maker">メーカー名</th>
+          <th class="th-admin">管理</th>
+        </tr>
+        
+      </thead>
+      <tbody id="tb1">
+        @foreach ($products as $product)
+        <tr>
+          <td class="id" data-label="ID">{{ $product->id }}</td>
+          <td  data-label="商品名">{{ $product->product_name }}</td>
+          <td  data-label="商品画像"><img class="img-fluid product-img" src="{{ '/storage/' . $product->image }}" class="w-100 mb-3"/></td>
+          <td  data-label="価格">{{ $product->price }}</td>
+          <td  data-label="在庫数">{{ $product->stock }}</td>
+          <td  data-label="メーカー名">{{ $product->company_name }}</td>
+          <td class="btn-row">
+            <p class="admin-btn"><a href="/detail/{{ $product->id }}" class="btn btn-primary btn-tb detail-btn">詳細</a></p>
+            <form method="POST" action="{{ route('delete', $product->id) }}" onSubmit="return checkDelete()">
+              @csrf
+              <button href="" class="btn btn-danger  admin-btn">削除</button>
+            </form>
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+    {{ $products->onEachSide(5)->links('pagination::bootstrap-4') }}  
   </div>
-  <table class="table table-hover table-fix" >
-    <thead>
-      <tr class="table-heading">
-        <th>ID</th>
-        <th style="">商品名</th>
-        <th style="">商品画像</th>
-        <th>価格</th>
-        <th>在庫数</th>
-        <th style=>メーカー名</th>
-        <th colspan="">管理</th>
-      </tr>
-      
-    </thead>
-    <tbody id="tb1">
-      @foreach ($products as $product)
-      <tr>
-        <td class="id">{{ $product->id }}</td>
-        <td>{{ $product->product_name }}</td>
-        <td class=""><img class="img-fluid" src="{{ '/storage/' . $product->image }}" class="w-100 mb-3" /></td>
-        <td>{{ $product->price }}</td>
-        <td>{{ $product->stock }}</td>
-        <td>{{ $product->company_name }}</td>
-        <td class="text-nowrap ">
-          <p class="admin-btn"><a href="/detail/{{ $product->id }}" class="btn btn-primary btn-sm">詳細</a></p>
-          <form method="POST" action="{{ route('delete', $product->id) }}" onSubmit="return checkDelete()">
-            @csrf
-            <button href="" class="btn btn-danger btn-sm admin-btn">削除</button>
-          </form>
-        </td>
-      </tr>
-      @endforeach
-    </tbody>
-  </table>
-  
-  {{ $products->onEachSide(5)->links('pagination::bootstrap-4') }}
-  
 </div>
       <script>
         function checkDelete(){

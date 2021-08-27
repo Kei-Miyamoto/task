@@ -2,6 +2,7 @@
 
 @section('titile', 'ユーザ新規登録画面')
 @section('content')
+<link href="{{ asset('css/auth.css') }}" rel="stylesheet">
 
 <body>
   <div class="row justify-content-center">

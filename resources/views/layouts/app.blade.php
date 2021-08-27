@@ -8,7 +8,7 @@
       @include('layouts.nav')<!-- ナビゲーション -->
     </div>
     <div id="app">
-    @yield('content') <!-- 商品検索と商品情報 -->
+    @yield('content') <!-- コンテンツ -->
     </div>    
   </body>
 </html>
