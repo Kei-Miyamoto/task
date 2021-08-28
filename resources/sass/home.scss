@@ -24,7 +24,7 @@
         .search-form {
           padding: 15px;
 
-          .search-row {
+          .form-row {
             padding: 10px;
             margin: 15px;
           }
@@ -34,6 +34,7 @@
     }
   }
 }
+
 
 //商品一覧
 .list-wrapper {
@@ -80,6 +81,7 @@
           vertical-align: middle;
         }
         
+
 
         @include tab() { //タブレット以下サイズ
           width: 100%;

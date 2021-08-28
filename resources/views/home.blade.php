@@ -27,7 +27,7 @@
 <div class="search-wrapper">
   <div class="container search-container">
     <div class="card search-card">
-      <h4 class="text-center card-header search-card-header">商品検索</h2>
+      <h4 class="text-center card-header search-card-header">商品検索</h4>
       <div class="card-body">
         <form method="GET" class="search-form" action="{{ route('home') }}">
           @csrf
@@ -64,7 +64,7 @@
 <!--商品一覧-->
 <div class="list-wrapper">
   <div class="container list-container">
-    <h4 class="text-center product-title">商品一覧</h2>
+    <h4 class="text-center product-title">商品一覧</h4>
     <p class="text-right"><a type="submit" class="btn btn-success create-btn" href="{{ route('create') }}">新規登録</a></p>
     <table class="table  table-hover" >
       <thead>
@@ -84,7 +84,7 @@
         <tr>
           <td class="id" data-label="ID">{{ $product->id }}</td>
           <td  data-label="商品名">{{ $product->product_name }}</td>
-          <td  data-label="商品画像"><img class="img-fluid product-img" src="{{ '/storage/' . $product->image }}" class="w-100 mb-3"/></td>
+          <td  data-label="商品画像"><img class="img-fluid product-img" src="{{ '/storage/' . $product->image }}" class="w-50 mb-3"/></td>
           <td  data-label="価格">{{ $product->price }}</td>
           <td  data-label="在庫数">{{ $product->stock }}</td>
           <td  data-label="メーカー名">{{ $product->company_name }}</td>

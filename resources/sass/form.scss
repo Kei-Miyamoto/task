@@ -1,27 +1,27 @@
 @import"variables";
 /*商品情報登録フォーム*/
-.create-wrapper {
+.form-wrapper {
   margin: 0 auto;
   text-align: center;
 
-  .create-container {
+  .form-container {
     padding: 0px;
     margin: 0 auto;
     margin-top: 25px;
     margin-bottom: 25px;
 
-    .create-card {
+    .form-card {
       text-align: center;
       margin: 0 auto;
       max-width: 1000px;
 
-      .create-card-header {
+      .form-card-header {
         width: 100%;
       }
       .card-body {
         padding: 10px;
 
-          .search-row {
+          .form-row {
             padding: 10px;
             margin: 15px;
             .img-box {
