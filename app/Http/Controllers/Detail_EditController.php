@@ -57,7 +57,8 @@ class Detail_EditController extends Controller
       \DB::beginTransaction();
       try {
         $inputs = $request->all();
-        $product_edit = Product::find($inputs['id']);
+        $product_edit = Product::find($inputs['product_id']);
+        //dd($product_edit);
         $companyId = DB::table('products')->select('company_id')->leftJoin('companies', 'products.company_id', '=', 'companies.id')
           ->where('company_name', '=', $request['company_name'])
           ->get();
@@ -71,7 +72,6 @@ class Detail_EditController extends Controller
           $product_edit->comment = $request->comment
         ];
         $product_edit->fill($inputs)->save();
-
         \DB::commit();
         \Session::flash('msg_success', '商品情報を更新しました');
       } catch (\Throwable $e){

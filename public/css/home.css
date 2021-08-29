@@ -28,9 +28,25 @@
   padding: 15px;
 }
 
-.search-wrapper .search-container .search-card .card-body .search-form .form-row {
+.search-wrapper .search-container .search-card .card-body .search-form .search-row {
+  margin-bottom: 20px;
+}
+
+.search-wrapper .search-container .search-card .card-body .search-form .search-row .form-row {
   padding: 10px;
   margin: 15px;
+}
+
+.search-wrapper .search-container .search-card .card-body .search-form .search-row .form-row .home-form {
+  margin-right: 20px;
+}
+
+@media (max-width: 480px) {
+  .btn-lg {
+    padding: 7px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
 }
 
 .list-wrapper .list-container {

@@ -13,8 +13,8 @@
       <table class="table table-hover">
         <tbody>
           <tr class="table-heading table-active tr_row1">
-            <th class="th-id">ID</th>
-            <th class="th-name">商品名</th>
+            <th class="_id">ID</th>
+            <th class="_name">商品名</th>
           </tr>
         
           <tr>
@@ -23,7 +23,7 @@
           </tr>
         
           <tr class="table-heading table-active tr_row2">
-            <th class="th-img">商品画像</th>
+            <th class="th_img">商品画像</th>
             <th class="th-price">価格</th>
           </tr>
 
@@ -37,7 +37,7 @@
           </tr>
         
           <tr>
-            <td data-label="在庫数 ">{{ $product_detail->stock }}</td>
+            <td data-label="在庫数">{{ $product_detail->stock }}</td>
           </tr>
 
           <tr class="table-heading table-active">
@@ -53,19 +53,21 @@
           </tr>
 
           <tr>
-            <td data-label="コメント" colspan="2">{{ $product_detail->comment }}</td>
+            <td data-label="コメント" colspan="2">{!! nl2br(htmlspecialchars($product_detail->comment)) !!}</td>
           </tr>
         </tbody>
       </table>
-    </div>
-    <div class="btn-row">
-      <p class="admin-btn"> 
-        <a href="/home" class="btn btn-secondary btn-tb back-btn">戻る</a>
-        <a href="/product/edit/{{ $product_detail->id }}" class="btn btn-info btn-tb edit-btn">編集</a>
-      </p>
+
+      <div class="admin-btn btn-row">
+          <a href="/home" class="btn btn-secondary btn-tb back-btn">戻る</a>
+          <a href="/product/edit/{{ $product_detail->id }}" class="btn btn-info btn-tb edit-btn">編集</a>
+      </div>
+
     </div>
   </div>
 </div>
+
+<!-- 横並びレイアウト -->
           <!-- <th class="th-id">ID</th>
             <th class="th-name">商品名</th>
             <th class="th-img">商品画像</th>

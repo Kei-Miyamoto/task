@@ -32,15 +32,15 @@
         <form method="GET" class="search-form" action="{{ route('home') }}">
           @csrf
           <div class="form-group row col- search-row">
-            <label class="col-xs-12 col-sm-4 col-md-4 col-form-label">商品名</label>
+            <label class="col-xs-12 col-sm-4 col-md-4 col-form-label home-form">商品名</label>
             <!--入力-->
-            <input type="search" value="{{ $search_product_name }}" class="col-xs-12 col-sm-8 col-md-8 form-control" name="search_product_name">
+            <input type="search" value="{{ $search_product_name }}" class="col-xs-12 col-sm-7 col-md-7 form-control home-form" name="search_product_name">
           </div>
           
           <!--プルダウンカテゴリ選択-->
           <div class="form-group row search-row search-row-btm">
-            <label class="col-xs-12 col-sm-4 col-md-4 col-form-label">メーカー名</label>
-              <select value="search_comany_name" name="search_company_name" class="col-xs-12 col-sm-8 col-md-8 form-control" id="maker">
+            <label class="col-xs-12 col-sm-4 col-md-4 col-form-label home-form">メーカー名</label>
+              <select value="search_comany_name" name="search_company_name" class="col-xs-12 col-sm-7 col-md-7 form-control home-form" id="maker">
                 <option>未選択</option>
                 @foreach($companies as $company)
                 <option value="{{ $company->company_name }}"
@@ -53,7 +53,7 @@
               </select>
           </div>
           <div class="col-sm-auto search-btn-box">
-            <button type="submit" class="btn btn-primary search-btn">検索</button>
+            <button type="submit" class="btn btn-primary search-btn btn-lg">検索</button>
           </div>
         </form>
       </div>
