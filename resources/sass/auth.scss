@@ -1,20 +1,68 @@
-/* パスワード表示非表示 */
-.boxxx {
-  display: flex;
-  align-items: center;
+@import"variables";
+
+  /* ログインフォーム */
+.auth-wrapper {
+  .auth-container {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    .card {
+      max-width: 800px;
+      margin: 0 auto;
+      .card-body {
+        .form-group {
+          width: 100%;
+          text-align: center;
+          margin: 0 auto;
+        }
+        .pass-box {
+          position: relative;
+        }
+      }
+    }
+  }
 }
-.box-pass {
-  width: 200px;
-  position: relative;
-}
-.button__input {
-  display: none;
-}
-.hidden-box {
-  display: none;
-}
-.button__label {
-  position: absolute;
-  right: 25px;
-  top: 8px;
+  /* パスワード表示非表示 */
+  .button__input {
+    display: none;
+  }
+  .hidden-box {
+    display: none;
+  }
+  .button__label {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+  }
+
+
+  /* ログインフォーム　タブレットまで */
+@media(max-width: $tab) {
+  .auth-wrapper {
+    .auth-container {
+      padding-top: 30px;
+      padding-bottom: 30px;
+      .card-body {
+        .form-group {
+          width: 100%;
+          text-align: center;
+          margin: 0 auto;
+        }
+        .pass-box {
+          position: relative;
+        }
+      }
+    }
+  }
+  /* パスワード表示非表示 */
+  .button__input {
+    display: none;
+  }
+  .hidden-box {
+    display: none;
+  }
+  .button__label {
+    position: absolute;
+    right: 15px;
+    top: 53px;
+  }
 }
