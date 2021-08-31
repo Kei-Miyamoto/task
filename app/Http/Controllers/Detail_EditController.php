@@ -58,12 +58,11 @@ class Detail_EditController extends Controller
       try {
         $inputs = $request->all();
         $product_edit = Product::find($inputs['product_id']);
-        //dd($product_edit);
         $companyId = DB::table('products')->select('company_id')->leftJoin('companies', 'products.company_id', '=', 'companies.id')
-          ->where('company_name', '=', $request['company_name'])
-          ->get();
+        ->where('company_name',$request['company_name'])
+        ->get();
         $company_id = $companyId[0]->company_id;
-
+        
         $image = $request->file('image');
         //画像がアップレードされていればstorageに保存
         if($request->hasFile('image')) {
@@ -72,28 +71,27 @@ class Detail_EditController extends Controller
         }else {
           $path = null;
         }
-
+        
         if($request->hasFile('image')) { //画像を登録する場合
-          //商品を削除する
-          $deleteImg = Product::find($id);
-          $deleteName = $deleteImg->image;
-          Product::destroy($id);
+          //画像ファイル
+          $deleteName = $product_edit->image;
+          //dd($deleteName);
           Storage::delete('public/'. $deleteName);
           $inputs = [
             $product_edit->product_name = $request->product_name,
-            $product->image = $path[1],
+            $product_edit->image = $path[1],
             $product_edit->company_id =  $company_id,
             $product_edit->price = $request->price,
             $product_edit->stock = $request->stock,
             $product_edit->comment = $request->comment
-          ];
+            ];
         }else { //画像を登録しない場合
           $inputs = [
-            $product->product_name = $request->product_name,
-            $product->company_id =  $company_id,
-            $product->price = $request->price,
-            $product->stock = $request->stock,
-            $product->comment = $request->comment
+            $product_edit->product_name = $request->product_name,
+            $product_edit->company_id =  $company_id,
+            $product_edit->price = $request->price,
+            $product_edit->stock = $request->stock,
+            $product_edit->comment = $request->comment
           ];
         }
 
@@ -102,7 +100,7 @@ class Detail_EditController extends Controller
         \Session::flash('msg_success', '商品情報を更新しました');
       } catch (\Throwable $e){
         \DB::rollback();
-        abort(500);
+        //abort(500);
         \Session::flash('msg_error', '商品情報を更に失敗しました');
       } 
       return redirect(route('home'));
