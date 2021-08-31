@@ -19,6 +19,7 @@
       });
     @endif
   </script>
+
   <div class="auth-wrapper">
     <div class="container auth-container">
       <div class="card">
@@ -37,22 +38,20 @@
           <form class="" method="POST" action="{{ route('login') }}">
             @csrf
             <div class="form-group row">
-              <label class="col-sm-12 col-md-4 col-lg-4 col-form-label text-md-center" for="">メールアドレス</label>
+              <label class="col-sm-12 col-md-3 col-lg-3 col-form-label text-md-center" for="">メールアドレス</label>
               <input type="email" class="form-control col-sm-12 col-md-8 col-lg-8" id="email" name="email" placeholder="" required>
             </div>
-            <br>
   
             <div class="form-group row pass-box">
-              <label class="col-md-4 col-form-label text-md-center" for="">パスワード</label>
-              <input type="password" class="form-control js-password form-control col-sm-12 col-md-8 col-lg-8" id="password" name="password" placeholder="" required>
+              <label class="col-md-3 col-form-label text-md-center" for="">パスワード</label>
+              <input type="password" class="form-control js-password col-sm-12 col-md-8 col-lg-8" id="password" name="password" placeholder="" required>
               <input class="js-password-toggle button__input hidden-box " id="password--eye" type="checkbox" name="password-eye">
               <label class="js-password-label button__label" for="password--eye"><i class="fas fa-eye"></i></label>
             </div>
-            <br>
           
-              <div class="text-center">
-                <button class="btn btn-primary" type="submit">ログイン</button>
-              </div>
+            <div class="text-center">
+              <button class="btn btn-primary" type="submit">ログイン</button>
+            </div>
         
           </div>
         </form>

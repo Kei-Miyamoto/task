@@ -64,13 +64,39 @@ class Detail_EditController extends Controller
           ->get();
         $company_id = $companyId[0]->company_id;
 
-        $inputs = [
-          $product_edit->product_name = $request->product_name,
-          $product_edit->company_id =  $company_id,
-          $product_edit->price = $request->price,
-          $product_edit->stock = $request->stock,
-          $product_edit->comment = $request->comment
-        ];
+        $image = $request->file('image');
+        //画像がアップレードされていればstorageに保存
+        if($request->hasFile('image')) {
+          $path = \Storage::put('/public', $image);
+          $path = explode('/', $path);
+        }else {
+          $path = null;
+        }
+
+        if($request->hasFile('image')) { //画像を登録する場合
+          //商品を削除する
+          $deleteImg = Product::find($id);
+          $deleteName = $deleteImg->image;
+          Product::destroy($id);
+          Storage::delete('public/'. $deleteName);
+          $inputs = [
+            $product_edit->product_name = $request->product_name,
+            $product->image = $path[1],
+            $product_edit->company_id =  $company_id,
+            $product_edit->price = $request->price,
+            $product_edit->stock = $request->stock,
+            $product_edit->comment = $request->comment
+          ];
+        }else { //画像を登録しない場合
+          $inputs = [
+            $product->product_name = $request->product_name,
+            $product->company_id =  $company_id,
+            $product->price = $request->price,
+            $product->stock = $request->stock,
+            $product->comment = $request->comment
+          ];
+        }
+
         $product_edit->fill($inputs)->save();
         \DB::commit();
         \Session::flash('msg_success', '商品情報を更新しました');

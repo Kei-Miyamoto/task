@@ -9,19 +9,22 @@
       max-width: 800px;
       margin: 0 auto;
       .card-body {
+        padding-top: 40px;
+        padding-bottom: 30px;
         .form-group {
           width: 100%;
           text-align: center;
           margin: 0 auto;
-        }
-        .pass-box {
-          position: relative;
+          margin-bottom: 10px;
         }
       }
     }
   }
 }
-  /* パスワード表示非表示 */
+
+/* パスワード表示非表示 */
+.pass-box {
+  position: relative;
   .button__input {
     display: none;
   }
@@ -30,12 +33,12 @@
   }
   .button__label {
     position: absolute;
-    right: 15px;
-    top: 10px;
+    top: 8px;
+    right: 75px;
   }
+}
 
-
-  /* ログインフォーム　タブレットまで */
+/* ログインフォーム　タブレットまで */
 @media(max-width: $tab) {
   .auth-wrapper {
     .auth-container {
@@ -47,22 +50,46 @@
           text-align: center;
           margin: 0 auto;
         }
-        .pass-box {
-          position: relative;
-        }
       }
     }
   }
-  /* パスワード表示非表示 */
-  .button__input {
-    display: none;
-  }
-  .hidden-box {
-    display: none;
-  }
-  .button__label {
-    position: absolute;
-    right: 15px;
-    top: 53px;
+}
+
+/* ログインフォーム　タブレットまで */
+@media(max-width: 767px) {
+  .auth-wrapper {
+    .auth-container {
+      padding-top: 30px;
+      padding-bottom: 30px;
+      .card {
+        .card-body {
+          padding-top: 20px;
+          .form-group {
+            width: 100%;
+            text-align: center;
+            margin: 0 auto;
+          }
+          .text-center {
+            margin-top: 20px;
+          }
+        }
+        
+        /* パスワード表示非表示 */
+        .pass-box {
+          position: relative;
+          .button__input {
+            display: none;
+          }
+          .hidden-box {
+            display: none;
+          }
+          .button__label {
+            position: absolute;
+            top: 53px;
+            right: 15px;
+          }
+        }
+      }
+    }
   }
 }

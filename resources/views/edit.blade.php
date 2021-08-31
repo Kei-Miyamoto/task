@@ -85,13 +85,13 @@
             </div>
           @endif
         </div>
+        <div class="admin-btn">
+          <button type="button" class="btn btn-secondary btn-back" onclick="location.href='{{ route('home') }}'">戻る</button>
+          <button type="submit" class="btn btn-primary btn-edit">更新</button>
+        </div>
       </form>
     </div>
     
-    <div class="admin-btn">
-      <button type="button" class="btn btn-secondary btn-back" onclick="location.href='{{ route('home') }}'">戻る</button>
-      <button type="submit" class="btn btn-primary btn-edit">更新</button>
-    </div>
   </div>
 </div>
 <script>

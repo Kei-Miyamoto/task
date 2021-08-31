@@ -41,20 +41,23 @@
     margin-left: 20px;
     float: left;
   }
+  .btn-create {
+    margin-right: 20px;
+    float: right;
+  }
   .btn-edit {
     margin-right: 20px;
     float: right;
   }
 }
 
-@media(min-width: $pc) {
+@media(min-width: 489px) {
   .form-wrapper {
     .form-container {
       .form-card {
         .card-body {
           padding-top: 20px;
           .form-row {
-            margin: 30px;
           }
         }
       }
@@ -62,42 +65,32 @@
   }
 }
 
-@media(min-width: $tab) {
+@media(max-width: 679px) {
   .form-wrapper {
     .form-container {
       .form-card {
         .card-body {
           padding-top: 20px;
           .form-row {
-            margin: 15px;
+            margin: 10px;
           }
         }
       }
     }
   }
 }
-@media(min-width: $sp) {
+
+@media (max-width: $tab) {
   .form-wrapper {
     .form-container {
       .form-card {
         .card-body {
           padding-top: 20px;
-          .form-row {
-            margin: 15px;
-          }
-        }
-      }
-    }
-  }
-}
-@media (max-width: $sp) {
-  .form-wrapper {
-    .form-container {
-      .form-card {
-        .card-body {
-          padding-top: 0px;
           .form-group {
-            margin: 5px;
+            margin: 0px;
+            .col-form-label {
+              margin: 0px;
+            }
           }
         }
       }
