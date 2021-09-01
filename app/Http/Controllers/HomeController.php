@@ -28,23 +28,32 @@ class HomeController extends Controller
      * 商品一覧を表示
      */
     public function showHome(Request $request) {
-      $query = Product::query() and Company::query();
+      $company = new Company;
+      $query = Product::query();
       //フォームを機能させるために各情報を取得viewに返す
-      $companies = Company::orderBy('id', 'asc')->get(['company_name']);
-      
+      $companies = $company->getCompany();
       //$request->input()で検索時に入力した項目を取得
       $search_product_name = $request->input('search_product_name');
-      $search_company_name = $request->input('search_company_name');
+      $companyId = $request->input('companyId');
       
+      //データがあるかどうかの確認
+      $searchData = [];
       //検索フォームで入力した文字列を含むカラム
       if (!empty($search_product_name)) {
-        $query->from('products')->where('product_name','like','%'.self::escapeLike($search_product_name).'%')->get(); 
+        $searchData = $query->from('products')->where('product_name','like','%'.self::escapeLike($search_product_name).'%')->get(); 
+        if(count($searchData) <= 0) {
+          \Session::flash('msg_error', 'データがありません');
+        }
+        //dd($search_pName);
       }
       //プルダウンメニューで指定なし以外を選択した場合、$query->whereで選択した会社名と一致するからむ
-      if($request->has('search_company_name') && $search_company_name != ('未選択')) {
-        $query->from('companies')->where('company_name', $search_company_name )->get();
+      if($request->has('companyId') && $companyId != ('未選択')) {
+        $searchCompany = $query->where('company_id', $companyId)->get();
+        if(count($searchCompany) <= 0 && count($searchData) <= 0) {
+          \Session::flash('msg_error', 'データがありません');
+        }
       }
-      
+
       //$queryをproduct_id順に並び替えて$productsに代入
       $products = $query->from('products')->select(
         'products.id as id',
@@ -64,7 +73,7 @@ class HomeController extends Controller
         'products' => $products,
         'companies' => $companies,
         'search_product_name' => $search_product_name,
-        'search_company_name' => $search_company_name,
+        'companyId' => $companyId,
       ]);
       }
 

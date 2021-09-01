@@ -40,14 +40,14 @@
           <!--プルダウンカテゴリ選択-->
           <div class="form-group row search-row search-row-btm">
             <label class="col-xs-12 col-sm-4 col-md-4 col-form-label home-form">メーカー名</label>
-              <select value="search_comany_name" name="search_company_name" class="col-xs-12 col-sm-7 col-md-7 form-control home-form" id="maker">
+              <select value="companyId" name="companyId" class="col-xs-12 col-sm-7 col-md-7 form-control home-form" id="maker">
                 <option>未選択</option>
-                @foreach($companies as $company)
-                <option value="{{ $company->company_name }}"
-                  @if ($search_company_name == $company->company_name)
-                  selected
+                @foreach($companies as $id => $company_name)
+                <option value="{{ $id }}"
+                  @if ($companyId == $id)
+                    selected
                   @endif
-                  >{{ $company->company_name }}
+                  >{{ $company_name }}
                 </option>  
                 @endforeach
               </select>
@@ -66,7 +66,7 @@
   <div class="container list-container">
     <h4 class="text-center product-title">商品一覧</h4>
     <p class="text-right"><a type="submit" class="btn btn-success create-btn" href="{{ route('create') }}">新規登録</a></p>
-    <table class="table  table-hover" >
+    <table class="table table-hover" >
       <thead>
         <tr  class="table-heading table-active">
           <th class="th-id">ID</th>
