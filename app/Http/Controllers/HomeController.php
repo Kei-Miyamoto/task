@@ -37,23 +37,17 @@ class HomeController extends Controller
       $companyId = $request->input('companyId');
       
       //データがあるかどうかの確認
-      $searchData = [];
+      
       //検索フォームで入力した文字列を含むカラム
       if (!empty($search_product_name)) {
-        $searchData = $query->from('products')->where('product_name','like','%'.self::escapeLike($search_product_name).'%')->get(); 
-        if(count($searchData) <= 0) {
-          \Session::flash('msg_error', 'データがありません');
-        }
+        $searchData = $query->from('products')->where('product_name','like','%'.self::escapeLike($search_product_name).'%')->get();
         //dd($search_pName);
       }
       //プルダウンメニューで指定なし以外を選択した場合、$query->whereで選択した会社名と一致するからむ
       if($request->has('companyId') && $companyId != ('未選択')) {
         $searchCompany = $query->where('company_id', $companyId)->get();
-        if(count($searchCompany) <= 0 && count($searchData) <= 0) {
-          \Session::flash('msg_error', 'データがありません');
-        }
       }
-
+      
       //$queryをproduct_id順に並び替えて$productsに代入
       $products = $query->from('products')->select(
         'products.id as id',
@@ -62,19 +56,22 @@ class HomeController extends Controller
         'products.image as image',
         'products.stock as stock',
         'companies.company_name as company_name',
+        )
+        ->orderBy('id','asc')
+        ->leftJoin('companies', 'products.company_id', '=', 'companies.id')
+        ->paginate(10);
         
-      )
-      ->orderBy('id','asc')
-      ->leftJoin('companies', 'products.company_id', '=', 'companies.id')
-      ->paginate(10);
-        
-      //dd($request);
-      return view('home',[
-        'products' => $products,
-        'companies' => $companies,
-        'search_product_name' => $search_product_name,
-        'companyId' => $companyId,
-      ]);
+        if(count($products) <= 0) {
+          \Session::flash('msg_error', 'データがありません');
+        }
+        //dd($request);
+
+        return view('home',[
+          'products' => $products,
+          'companies' => $companies,
+          'search_product_name' => $search_product_name,
+          'companyId' => $companyId,
+        ]);
       }
 
     //セキュリティ対策
@@ -91,7 +88,6 @@ class HomeController extends Controller
       $product_detail = Product::find($id);
       
       if(is_null($product_detail)) {
-        \Session::flash('msg_error', 'データがありません');
         return redirect(route('home'));
       }
       
