@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Eloquent;
+use Kyslik\ColumnSortable\Sortable; //ソート機能
 
 class Product extends Model
 {
     use HasFactory;
+    use Sortable;
 
     protected $table = 'products';
     protected $fillable = [
@@ -30,6 +32,8 @@ class Product extends Model
     public function sales () {
       return $this->hasMany(Sale::class);
     }
+
+    public $sortable = ['id', 'product_name', 'price', 'stock', 'company_id', ];
 
     
 }

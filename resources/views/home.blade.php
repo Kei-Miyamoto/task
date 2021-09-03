@@ -7,6 +7,7 @@
 
   
 <link href="{{ asset('css/home.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
   
 <script>
 //成功時
@@ -66,15 +67,24 @@
   <div class="container list-container">
     <h4 class="text-center product-title">商品一覧</h4>
     <p class="text-right"><a type="submit" class="btn btn-success create-btn" href="{{ route('create') }}">新規登録</a></p>
-    <table class="table table-hover" >
+    <table class="table table-hover">
+      <nav class="items">
+        <ul>
+          <li class="item">@sortablelink('id', 'ID')</li>
+          <li class="item">@sortablelink('product_name','商品名')</li>
+          <li class="item">@sortablelink('price', '価格')</li>
+          <li class="item">@sortablelink('stock','在庫数')</li>
+          <li class="item">@sortablelink('company_name','メーカー名')</li>
+        </ul>
+      </nav>
       <thead>
         <tr  class="table-heading table-active">
-          <th class="th-id">ID</th>
-          <th class="th-name">商品名</th>
+          <th class="th-id">@sortablelink('id', 'ID')</th>
+          <th class="th-name">@sortablelink('product_name','商品名')</th>
           <th class="th-img">商品画像</th>
-          <th class="th-price">価格</th>
-          <th class="th-stock">在庫数</th>
-          <th class="th-maker">メーカー名</th>
+          <th class="th-price">@sortablelink('price', '価格')</th>
+          <th class="th-stock">@sortablelink('stock','在庫数')</th>
+          <th class="th-maker">@sortablelink('company_name','メーカー名')</th>
           <th class="th-admin">管理</th>
         </tr>
         
@@ -99,7 +109,7 @@
         @endforeach
       </tbody>
     </table>
-    {{ $products->onEachSide(5)->links('pagination::bootstrap-4') }}  
+    {{ $products->appends(request()->query())->onEachSide(5)->links('pagination::bootstrap-4') }}  
   </div>
 </div>
       <script>

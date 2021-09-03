@@ -105,9 +105,6 @@
     width: 100%;
     text-align: center;
   }
-  .list-wrapper .list-container .table thead {
-    display: none;
-  }
   .list-wrapper .list-container .table tr {
     width: 100%;
   }

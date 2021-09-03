@@ -57,6 +57,7 @@ class HomeController extends Controller
         'products.stock as stock',
         'companies.company_name as company_name',
         )
+        ->sortable()
         ->orderBy('id','asc')
         ->leftJoin('companies', 'products.company_id', '=', 'companies.id')
         ->paginate(10);
