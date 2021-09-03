@@ -145,7 +145,7 @@
 }
 
 .list-wrapper .table .table-heading .th-id {
-  width: 5%;
+  width: 8%;
 }
 
 .list-wrapper .table .table-heading .th-name {
@@ -153,7 +153,7 @@
 }
 
 .list-wrapper .table .table-heading .th-img {
-  width: 24%;
+  width: 22%;
 }
 
 .list-wrapper .table .table-heading .th-price {
@@ -161,7 +161,7 @@
 }
 
 .list-wrapper .table .table-heading .th-stock {
-  width: 10%;
+  width: 12%;
 }
 
 .list-wrapper .table .table-heading .th-maker {
@@ -169,7 +169,7 @@
 }
 
 .list-wrapper .table .table-heading .th-admin {
-  width: 15%;
+  width: 12%;
 }
 
 .list-wrapper .table .product-img {
