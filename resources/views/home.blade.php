@@ -39,7 +39,7 @@
           </div>
           
           <!--プルダウンカテゴリ選択-->
-          <div class="form-group row search-row search-row-btm">
+          <div class="form-group row search-row">
             <label class="col-xs-12 col-sm-4 col-md-4 col-form-label home-form">メーカー名</label>
               <select value="companyId" name="companyId" class="col-xs-12 col-sm-7 col-md-7 form-control home-form" id="maker">
                 <option>未選択</option>
@@ -53,6 +53,28 @@
                 @endforeach
               </select>
           </div>
+          
+          <div class="form-group row search-row">
+            <label class="col-xs-2 col-sm-4 col-md-4 col-form-label home-form">価格</label>
+            <input type="search" value="{{ $search_minPrice }}" class="col-xs-2 col-sm-3 col-md-3 form-control home-form number-box" name="search_minPrice" placeholder="下限">
+            <label class="col-form-label home-form col-xs-2" for="">　〜　</label>
+            <input type="search" value="{{ $search_maxPrice }}" class="col-xs-2 col-sm-3 col-md-3 form-control home-form number-box" name="search_maxPrice" placeholder="上限">
+            <label class="col-form-label home-form">　円</label>
+            
+          </div>
+
+          <div class="form-group row search-row">
+            <label class="col-xs-12 col-sm-4 col-md-4 col-form-label home-form">在庫数</label>
+            <input type="search" value="{{ $search_minStock }}" class="form-control home-form number-box col-xs-4 col-sm-3 col-md-3" name="search_minStock" placeholder="下限">
+            <label class="col-form-label home-form col-xs-4" for="">　〜　</label>
+            <input type="search" value="{{ $search_maxStock }}" class="col-xs-4 col-sm-3 col-md-3 form-control home-form number-box" name="search_maxStock" placeholder="上限">
+            <label class="col-form-label home-form">　個</label>
+          </div>
+          
+        
+
+
+
           <div class="col-sm-auto search-btn-box">
             <button type="submit" class="btn btn-primary search-btn btn-lg">検索</button>
           </div>
@@ -72,7 +94,7 @@
         <ul class="dropDown-menu">
           <li class="dropDown-list"><a href="javascript:void(0)" onClick="hogeFunction();return false;" class="sort">並び替え</a>
             <ul class="items">
-              <li class="item item_1"><a href="">@sortablelink('id', 'ID')</a></li>
+              <li class="item item_1">@sortablelink('id', 'ID')</li>
               <li class="item">@sortablelink('product_name','商品名')</li>
               <li class="item">@sortablelink('price', '価格')</li>
               <li class="item">@sortablelink('stock','在庫数')</li>

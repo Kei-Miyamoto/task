@@ -32,6 +32,12 @@
               .home-form {
                 margin-right: 20px;
               }
+              input {
+                margin: 0;
+              }
+              .number-box {
+                margin: 0;
+              }
             }
           }
 
@@ -97,9 +103,6 @@
               border-top: 1px solid black;
               text-align: left;
               text-decoration: none;
-              a {
-                color: $cyan;
-              }
             }
             .item_1 {
               border-top: none;

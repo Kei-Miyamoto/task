@@ -35,17 +35,41 @@ class HomeController extends Controller
       //$request->input()で検索時に入力した項目を取得
       $search_product_name = $request->input('search_product_name');
       $companyId = $request->input('companyId');
-      
-      //データがあるかどうかの確認
+      $search_minPrice = $request->input('search_minPrice');
+      $search_maxPrice = $request->input('search_maxPrice');
+      $search_minStock = $request->input('search_minStock');
+      $search_maxStock = $request->input('search_maxStock');
       
       //検索フォームで入力した文字列を含むカラム
       if (!empty($search_product_name)) {
-        $searchData = $query->from('products')->where('product_name','like','%'.self::escapeLike($search_product_name).'%')->get();
+        $query->from('products')->where('product_name','like','%'.self::escapeLike($search_product_name).'%')->get();
         //dd($search_pName);
       }
       //プルダウンメニューで指定なし以外を選択した場合、$query->whereで選択した会社名と一致するからむ
       if($request->has('companyId') && $companyId != ('未選択')) {
-        $searchCompany = $query->where('company_id', $companyId)->get();
+        $query->where('company_id', $companyId)->get();
+      }
+
+      //価格検索
+      if((!empty($search_minPrice) or !empty($search_maxPrice))) {
+        if(empty($search_minPrice)) {
+          $search_minPrice = 0;
+        }
+        if(empty($search_maxPrice)) {
+          $search_maxPrice = 9999999;
+        }
+        $query->whereBetween('price',[$search_minPrice, $search_maxPrice])->get();
+      }
+      
+      //在庫数検索
+      if((!empty($search_minStock) or !empty($search_maxStock))) {
+        if(empty($search_minStock)) {
+          $search_minStock = 0;
+        }
+        if(empty($search_maxStock)) {
+          $search_maxStock = 9999999;
+        }
+        $query->whereBetween('stock',[$search_minStock, $search_maxStock])->get();
       }
       
       //$queryをproduct_id順に並び替えて$productsに代入
@@ -72,6 +96,10 @@ class HomeController extends Controller
           'companies' => $companies,
           'search_product_name' => $search_product_name,
           'companyId' => $companyId,
+          'search_minPrice' => $search_minPrice,
+          'search_maxPrice' => $search_maxPrice,
+          'search_minStock' => $search_minStock,
+          'search_maxStock' => $search_maxStock,
         ]);
       }
 

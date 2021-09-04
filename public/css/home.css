@@ -41,6 +41,14 @@
   margin-right: 20px;
 }
 
+.search-wrapper .search-container .search-card .card-body .search-form .search-row .form-row input {
+  margin: 0;
+}
+
+.search-wrapper .search-container .search-card .card-body .search-form .search-row .form-row .number-box {
+  margin: 0;
+}
+
 @media (max-width: 480px) {
   .btn-lg {
     padding: 7px;
@@ -107,10 +115,6 @@
   border-top: 1px solid black;
   text-align: left;
   text-decoration: none;
-}
-
-.list-wrapper .list-container .dropDown .dropDown-menu .dropDown-list .items .item a {
-  color: #6cb2eb;
 }
 
 .list-wrapper .list-container .dropDown .dropDown-menu .dropDown-list .items .item_1 {
