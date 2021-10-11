@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CreateController;
 use App\Http\Controllers\Detail_EditController;
+use App\Http\Controllers\Ajax\ListController;
 
 
 /*
@@ -34,6 +35,9 @@ Route::group(['middleware' => ['auth']], function() {
   Route::post('logout',[AuthController::class,'logout'])->name('logout');
   //ログイン後ホーム（商品一覧検索画面）
   Route::get('/home', [HomeController::class, 'showHome'])->name('home');
+  //仮ホーム（非同期処理検索画面）
+  Route::get('async',[ListController::class,'async'])->name('async');
+  Route::get('ajax/product',[ListController::class,'list'])->name('list');
   
   //検索結果表示
   Route::get('/search', [HomeController::class, 'showSearch'])->name('search');
@@ -53,7 +57,8 @@ Route::group(['middleware' => ['auth']], function() {
   Route::post('/product/update',[Detail_EditController::class,'exeUpdate'])->name('update');
   
   //商品削除
-  Route::post('/product/delete/{id}',[HomeController::class,'exeDelete'])->name('delete');
+  Route::delete('/product/delete/{id}',[HomeController::class,'exeDelete'])->name('delete');
+  
 });
 
   //Auth::routes();

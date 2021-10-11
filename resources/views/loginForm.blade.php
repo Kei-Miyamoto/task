@@ -5,7 +5,7 @@
 <link href="{{ asset('css/auth.css') }}" rel="stylesheet">
 
 <body>
-  <script>
+  <!-- <script>
     @if (Session::has('msg_success'))
       $(function() {
         toastr.success('{{ session('msg_success') }}');
@@ -18,7 +18,7 @@
         toastr.error('{{ session('msg_error') }}');
       });
     @endif
-  </script>
+  </script> -->
 
   <div class="auth-wrapper">
     <div class="container auth-container">
@@ -60,7 +60,7 @@
   
 </div>
 <!-- パスワード非表示/表示 -->
-<script></script>
+<!-- <script></script> -->
 </body>
 
 @endsection('content')

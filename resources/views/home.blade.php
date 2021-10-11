@@ -9,33 +9,23 @@
 <link href="{{ asset('css/home.css') }}" rel="stylesheet">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
   
-<script>
-//成功時
-  @if (Session::has('msg_success'))
-    $(function() {
-      toastr.success('{{ session('msg_success') }}');
-    });
-  @endif
-  //失敗時
-  @if (Session::has('msg_error'))
-    $(function() {
-      toastr.error('{{ session('msg_error') }}');
-    });
-  @endif
-</script>
+
+<!-- 非同期処理用画面遷移 -->
+<button type="button" class="btn btn-secondary btn-back" onclick="location.href='{{ route('async') }}'">非同期処理画面</button>
 
 <!--検索フォーム-->
+
 <div class="search-wrapper">
   <div class="container search-container">
     <div class="card search-card">
       <h4 class="text-center card-header search-card-header">商品検索</h4>
       <div class="card-body">
-        <form method="GET" class="search-form" action="{{ route('home') }}">
+        <form method="GET" class="search-form" action="{{ url('/home') }}">
           @csrf
           <div class="form-group row col- search-row">
             <label class="col-xs-12 col-sm-4 col-md-4 col-form-label home-form">商品名</label>
             <!--入力-->
-            <input type="search" value="{{ $search_product_name }}" class="col-xs-12 col-sm-7 col-md-7 form-control home-form" name="search_product_name">
+            <input id="search-name" type="search" value="search-name" class="col-xs-12 col-sm-7 col-md-7 form-control home-form" name="search_product_name">
           </div>
           
           <!--プルダウンカテゴリ選択-->
@@ -45,7 +35,7 @@
                 <option>未選択</option>
                 @foreach($companies as $id => $company_name)
                 <option value="{{ $id }}"
-                  @if ($companyId == $id)
+                  @if ($companyId === $id)
                     selected
                   @endif
                   >{{ $company_name }}
@@ -71,12 +61,8 @@
             <label class="col-form-label home-form">　個</label>
           </div>
           
-        
-
-
-
           <div class="col-sm-auto search-btn-box">
-            <button type="submit" class="btn btn-primary search-btn btn-lg">検索</button>
+            <button id="search-btn" type="submit" class="btn btn-primary search-btn btn-lg">検索</button>
           </div>
         </form>
       </div>
@@ -89,6 +75,7 @@
   <div class="container list-container">
     <h4 class="text-center product-title">商品一覧</h4>
     <p class="text-right"><a type="submit" class="btn btn-success create-btn" href="{{ route('create') }}">新規登録</a></p>
+    
     <table class="table table-hover">
       <div class="dropDown">
         <ul class="dropDown-menu">
@@ -112,23 +99,19 @@
           <th class="th-maker">メーカー名</th>
           <th class="th-admin">管理</th>
         </tr>
-        
       </thead>
       <tbody id="tb1">
         @foreach ($products as $product)
-        <tr>
+        <tr id="{{ $product->id }}">
           <td class="id" data-label="ID">{{ $product->id }}</td>
-          <td  data-label="商品名">{{ $product->product_name }}</td>
-          <td  data-label="商品画像"><img class="img-fluid product-img" src="{{ '/storage/' . $product->image }}" class="w-50 mb-3"/></td>
-          <td  data-label="価格">{{ $product->price }}</td>
-          <td  data-label="在庫数">{{ $product->stock }}</td>
-          <td  data-label="メーカー名">{{ $product->company_name }}</td>
+          <td class="productName" data-label="商品名">{{ $product->product_name }}</td>
+          <td data-label="商品画像"><img class="img-fluid product-img" src="{{ '/storage/' . $product->image }}" class="w-50 mb-3"/></td>
+          <td data-label="価格">{{ $product->price }}</td>
+          <td data-label="在庫数">{{ $product->stock }}</td>
+          <td data-label="メーカー名">{{ $product->company_name }}</td>
           <td class="btn-row">
             <p class="admin-btn"><a href="/detail/{{ $product->id }}" class="btn btn-primary btn-tb detail-btn">詳細</a></p>
-            <form method="POST" action="{{ route('delete', $product->id) }}" onSubmit="return checkDelete()">
-              @csrf
-              <button href="" class="btn btn-danger  admin-btn">削除</button>
-            </form>
+            <button class="btn btn-danger admin-btn delete-btn" type="button">削除</button>
           </td>
         </tr>
         @endforeach
@@ -137,14 +120,5 @@
     {{ $products->appends(request()->query())->onEachSide(5)->links('pagination::bootstrap-4') }}  
   </div>
 </div>
-      <script>
-        function checkDelete(){
-          if(window.confirm('削除してよろしいですか？')){
-            return true;
-          } else {
-            return false;
-          }
-        }
-      </script>
 
 @endsection

@@ -12,6 +12,11 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .vue()
-    .sass('resources/sass/home.scss', 'public/css')
-    .disableSuccessNotifications();
+.js('resources/js/crud.js', 'public/js')
+.sass('resources/sass/home.scss', 'public/css')
+.disableSuccessNotifications()
+.vue();
+
+mix.sourceMaps()
+.js('node_modules/popper.js/dist/popper.js','public/js')
+.sourceMaps();

@@ -91,7 +91,7 @@ class HomeController extends Controller
         }
         //dd($request);
 
-        return view('home',[
+        return response()->json([
           'products' => $products,
           'companies' => $companies,
           'search_product_name' => $search_product_name,
@@ -146,10 +146,6 @@ class HomeController extends Controller
      * @return view
      */
     public function exeDelete($id) {
-      if(is_null($id)) {
-        \Session::flash('msg_error', 'データがありません');
-        return redirect(route('home'));
-      }
       try {
         //商品を削除する
         $deleteImg = Product::find($id);
@@ -159,7 +155,8 @@ class HomeController extends Controller
       } catch (\Throwable $e){
         abort(500);
       }
-      \Session::flash('msg_success', '削除しました');
-      return redirect(route('home'));
+      //\Session::flash('msg_success', '削除しました');
+      //return redirect(route('home'));
+      exit();
     }
 }
