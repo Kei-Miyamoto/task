@@ -11,7 +11,7 @@
   
 
 <!-- 非同期処理用画面遷移 -->
-<button type="button" class="btn btn-secondary btn-back" onclick="location.href='{{ route('async') }}'">非同期処理画面</button>
+<button type="button" class="btn btn-secondary btn-back" onclick="location.href='{{ route('ajaxhome') }}'">非同期処理画面</button>
 
 <!--検索フォーム-->
 
@@ -25,7 +25,7 @@
           <div class="form-group row col- search-row">
             <label class="col-xs-12 col-sm-4 col-md-4 col-form-label home-form">商品名</label>
             <!--入力-->
-            <input id="search-name" type="search" value="search-name" class="col-xs-12 col-sm-7 col-md-7 form-control home-form" name="search_product_name">
+            <input id="search-name" type="search" value="{{ $search_product_name }}" class="col-xs-12 col-sm-7 col-md-7 form-control home-form" name="search_product_name">
           </div>
           
           <!--プルダウンカテゴリ選択-->
@@ -77,6 +77,7 @@
     <p class="text-right"><a type="submit" class="btn btn-success create-btn" href="{{ route('create') }}">新規登録</a></p>
     
     <table class="table table-hover">
+      
       <div class="dropDown">
         <ul class="dropDown-menu">
           <li class="dropDown-list"><a href="javascript:void(0)" onClick="hogeFunction();return false;" class="sort">並び替え</a>

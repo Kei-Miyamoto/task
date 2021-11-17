@@ -23,7 +23,6 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
-
     /**
      * 商品一覧を表示
      */
@@ -91,7 +90,7 @@ class HomeController extends Controller
         }
         //dd($request);
 
-        return response()->json([
+        return view('home',[
           'products' => $products,
           'companies' => $companies,
           'search_product_name' => $search_product_name,

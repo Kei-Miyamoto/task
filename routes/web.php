@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CreateController;
 use App\Http\Controllers\Detail_EditController;
 use App\Http\Controllers\Ajax\ListController;
+use App\Http\Controllers\Ajax\OptionController;
 
 
 /*
@@ -35,9 +36,11 @@ Route::group(['middleware' => ['auth']], function() {
   Route::post('logout',[AuthController::class,'logout'])->name('logout');
   //ログイン後ホーム（商品一覧検索画面）
   Route::get('/home', [HomeController::class, 'showHome'])->name('home');
+  Route::get('/home/ajax/', [HomeController::class, 'ajax'])->name('ajax');
   //仮ホーム（非同期処理検索画面）
-  Route::get('async',[ListController::class,'async'])->name('async');
-  Route::get('ajax/product',[ListController::class,'list'])->name('list');
+  Route::get('/ajax',[ListController::class,'ajaxhome'])->name('ajaxhome');
+  Route::get('/ajax/search/',[ListController::class,'ajaxSearch'])->name('ajaxSearch');
+  
   
   //検索結果表示
   Route::get('/search', [HomeController::class, 'showSearch'])->name('search');

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ListController;
+use App\Http\Controllers\Ajax\OptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,11 +16,9 @@ use App\Http\Controllers\ListController;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+/* Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
-});
+}); */
 
-//list
-Route::get('products',[ListController::class,'index']);
-//list single
-Route::get('products/{id}',[ListController::class,'show']);
+Route::get('ajax/sort',[OptionController::class,'sort'])->name('sort');
+Route::post('/buy/{id}',[OptionController::class,'buy'])->name('buy');

@@ -1,102 +1,201 @@
+const { find } = require("lodash");
+const { VBtnToggle } = require("vuetify/lib");
 
 $(function() {
-  //商品名検索機能
-  $("#search-name").on('input', searchName);
-  function searchName() {
-    var results = [];
-    var inputProductName = $(this).val();
-    
-  }
-
-
-  //検索ボタン押したら
-  $("#search-btn").on('click', function() {
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-      }
-    });
-    var productName = $('#search-name').val();
-    if(!productName) {
-      return false;
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
     }
-    $.ajax({
-      url:'/home',
-      type: 'GET',
-      data: {
-        'search-name' : searchName,
-      },
-      dataType:'json',
-      beforeSend: function() {
-        $('.loading').removeClass('display-none');
-      }
-      .done(function(data) {
-        $('.loading').addClass('dispay-none');
-        var html = '';
-        $.each(data, function(index, value) {
-          var id = value.id;
-          var name = value.name;
-          html = `
-          <tr>
-            <td class="id" data-label="ID">${id}</td>
-            <td class="productName" data-label="商品名">${name}</td>
-            <td data-label="商品画像"><img class="img-fluid product-img" src="{{ '/storage/' . ${image} }}" class="w-50 mb-3"/></td>
-            <td data-label="価格">${pric}</td>
-            <td data-label="在庫数">${stock}</td>
-            <td data-label="メーカー名">${company_name}</td>
-            <td class="btn-row">
-              <p class="admin-btn"><a href="/detail/${id}" class="btn btn-primary btn-tb detail-btn">詳細</a></p>
-              <button class="btn btn-danger admin-btn delete-btn" type="button">削除</button>
-            </td>
-          </tr>
-          `
-        })
-        $('tbody').append(html);
-        if(data.length === 0) {
-          $('tr').remove();
-          toastr.error('該当する商品がありません');
-        }
+  });
+  
+  //購入モーダル表示
+  $('.buy-btn').on('click', function () {
+    let clickEle = $(this);
+    let recipient = clickEle.data('name');
+    $('#overlay, .modal-window').fadeIn();
+    $('.modal-productName').append('商品名：' + recipient);
+    //購入処理
+    $('.js-buy').on('click', function (){
+      let productID = clickEle.data('id');
+      let purchase = $('#purchase').val();
+      console.log(purchase)
+
+      $.ajax({
+        
+        type: 'POST',
+        url: 'api/buy/' + productID,
+        dataType: 'json',
+        data: {
+          id : productID,
+          purchase : purchase,
+        },
+        cache: false,
       })
-      .fail(function() {
-        toastr.error('エラー');
+      .done(function() {
+        toastr.success('商品を購入しました');
+
       })
-    });
+      .fail(function(data, xhr, err) {
+        console.log(err);
+        console.log(xhr);
+        console.log(data || 'null');
+      })
+      /* .always(function() {
+        location.reload();
+        
+      }) */
+    })
   });
 
+  //購入モーダル非表示
+  $('.js-close, #overlay, .js-buy').on('click', function () {
+    $('#overlay, .modal-window').fadeOut();
+    $('.modal-productName').empty();
+  });
 
-  //削除機能
-  $(".delete-btn").on('click', function() {
-    var deleteConfirm = confirm('削除してよろしいでしょうか？');
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-      }
-    });
-    
+  //削除処理(初期画面)
+  $("#delete-btn").on('click', function() {
+    let deleteConfirm = confirm('削除してよろしいでしょうか？');
+
     if(deleteConfirm == true) {
-      var clickEle = $(this)
-      var productID = clickEle.parent().parent().attr('id');
-      $.ajax ({
-        url: '/product/delete/' + productID,
-        //dataType: 'json',
-        type: 'POST',
-        data: {'id': productID, '_method': "DELETE" }
-      })
-      
-      .done(function() {
-        clickEle.closest('tr').remove();
-        toastr.success('削除しました');
+    let clickEle = $(this)
+    let productID = clickEle.parent().parent().attr('id');
+    $.ajax ({
+      url: '/product/delete/' + productID,
+      //dataType: 'json',
+      type: 'POST',
+      data: {id: productID, '_method': "DELETE" }
     })
-    
+
+    .done(function() {
+      clickEle.closest('tr').remove();
+      toastr.success('削除しました');
+    })
     .fail(function() {
-        toastr.error('削除できませんでした');
-        //alert('エラー');
-      });
+      toastr.error('削除できませんでした');
+      //alert('エラー');
+    });
     }else {
       (function(e) {
         e.preventDefault()
       });
     };
   });
+    /* $.extend( $.fn.dataTable.defaults, { 
+          language: {
+              url: "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+          } 
+      });  */
+    /* $('#datatable').DataTables( ); */
+  
 
+  /* //ソート機能
+  $('#sortId').dataTable().on('click',function(){
+    $.ajax({
+      type: 'GET',
+      url: '/ajax/sort/',
+      dataType: 'json',
+      data: {
+            product_name : searchWord,
+            id : id,
+            price : price,
+            stock : stock,
+      },
+    });
+  }); */
+
+  //検索
+  $('#search-btn').on('click', function(){
+    $('#tb1').empty();//元々ある要素を空にする
+    $('.search-null').remove();//検索結果が0の時のテキストを消す
+
+    let searchWord = $('#search-name').val();//検索ワードを取得
+    let companyId = $('#companyId').val();//プルダウン
+    let searchMinPrice = $('#search-minPrice').val();//検索ワードを取得
+    let searchMaxPrice = $('#search-maxPrice').val();//検索ワードを取得
+    let searchMinStock = $('#search-minStock').val();//検索ワードを取得
+    let searchMaxStock = $('#search-maxStock').val();//検索ワードを取得
+    
+    $.ajax({
+      type: 'GET',
+      url: '/ajax/search/',
+      dataType: 'json',
+      data: {
+        product_name : searchWord,
+        companyId : companyId,
+        search_minPrice : searchMinPrice,
+        search_maxPrice : searchMaxPrice,
+        search_minStock : searchMinStock,
+        search_maxStock : searchMaxStock,
+      },
+      cache: false,
+    })
+
+    .done(function(data) {
+  
+      let html = '';
+      $.each(data.products, function (data,value) {
+        //console.log(value);
+        html = `
+        <tr id="${value.id}">
+          <td class="id" data-label="ID">${value.id}</td>
+          <td class="productName" data-label="商品名">${value.product_name}</td>
+          <td data-label="商品画像"><img class="img-fluid product-img" src='/storage/${value.image}' class="w-50 mb-3"/></td>
+          <td data-label="価格">${value.price}</td>
+          <td data-label="在庫数">${value.stock}</td>
+          <td data-label="メーカー名">${value.company_name}</td>
+          <td class="btn-row">
+            <p class="admin-btn"><a href="/detail/${value.id}" class="btn btn-primary btn-tb detail-btn">詳細</a></p>
+            <p class="admin-btn"><a class="btn btn-info btn-tb buy-btn" style="color:white;">購入</a></p>
+            <button id="delete-btn" class="btn btn-danger admin-btn delete-btn" type="button">削除</button>
+          </td>
+        </tr>
+        `;
+        $('#tb1').append(html);
+      });
+    
+      if(data.products.length == 0) {
+        toastr.error('該当する商品がありません');
+      }
+    })
+    .fail(function(data, xhr, err) {
+      console.log(err);
+      console.log(xhr);
+      console.log(data || 'null');
+      
+    });
+
+    $(document).ajaxComplete(function(){
+      //削除機能(検索後)
+      $("#delete-btn").on('click', function() {
+        var deleteConfirm = confirm('削除してよろしいでしょうか？');
+
+        if(deleteConfirm == true) {
+        var clickEle = $(this);
+        var productID = clickEle.parent().parent().attr('id');
+        $.ajax ({
+          url: '/product/delete/' + productID,
+          //dataType: 'json',
+          type: 'POST',
+          data: {id: productID, '_method': "DELETE" }
+        })
+    
+        .done(function() {
+          clickEle.closest('tr').remove();
+          toastr.success('削除しました');
+        })
+        .fail(function() {
+          toastr.error('削除できませんでした');
+          //alert('エラー');
+        });
+        }else {
+          (function(e) {
+            e.preventDefault()
+          });
+        };
+      });
+
+      
+    });
+  });
 });
