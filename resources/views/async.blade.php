@@ -7,7 +7,7 @@
 
   
 <link href="{{ asset('css/home.css') }}" rel="stylesheet">
-
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
 
 
 <!-- 非同期処理用画面遷移 -->
@@ -31,16 +31,13 @@
     <button class="js-buy btn btn-success btn-tb" type="button" >購入</button>
   </div>
 
-<button type="button" class="btn btn-secondary btn-back" onclick="location.href='{{ route('home') }}'">戻る</button>
-<br>
-<br>
-
 
 <div class="search-wrapper">
   <div class="container search-container">
     <div class="card search-card">
       <h4 class="text-center card-header search-card-header">商品検索</h4>
       <div class="card-body">
+        <div class="search-form">
           <div class="form-group row col- search-row">
             <label class="col-xs-12 col-sm-4 col-md-4 col-form-label home-form">商品名</label>
             <!--入力-->
@@ -50,19 +47,19 @@
           <!-- プルダウンカテゴリ選択 -->
           <div class="form-group row search-row">
             <label class="col-xs-12 col-sm-4 col-md-4 col-form-label home-form">メーカー名</label>
-              <select value="companyId" name="companyId" class="col-xs-12 col-sm-7 col-md-7 form-control home-form" id="companyId">
-                <option>未選択</option>
-                @foreach($companies as $id => $company_name)
-                <option value="{{ $id }}"
-                  @if ($companyId === $id)
-                    selected
-                  @endif
-                  >{{ $company_name }}
-                </option>  
-                @endforeach
-              </select>
+            <select value="companyId" name="companyId" class="col-xs-12 col-sm-7 col-md-7 form-control home-form" id="companyId">
+              <option>未選択</option>
+              @foreach($companies as $id => $company_name)
+              <option value="{{ $id }}"
+              @if ($companyId === $id)
+              selected
+              @endif
+              >{{ $company_name }}
+              </option>  
+              @endforeach
+            </select>
           </div>
-          
+        
           <div class="form-group row search-row">
             <label class="col-xs-2 col-sm-4 col-md-4 col-form-label home-form">価格</label>
             <input id="search-minPrice" type="text" class="col-xs-2 col-sm-3 col-md-3 form-control home-form number-box" name="search-minPrice" placeholder="下限">
@@ -70,7 +67,7 @@
             <input id="search-maxPrice" type="text" class="col-xs-2 col-sm-3 col-md-3 form-control home-form number-box" name="search-maxPrice" placeholder="上限">
             <label class="col-form-label home-form">　円</label>
           </div>
-
+        
           <div class="form-group row search-row">
             <label class="col-xs-12 col-sm-4 col-md-4 col-form-label home-form">在庫数</label>
             <input id="search-minStock" type="text" class="form-control home-form number-box col-xs-4 col-sm-3 col-md-3" name="search-minStock" placeholder="下限">
@@ -78,10 +75,11 @@
             <input id="search-maxStock" type="text" class="col-xs-4 col-sm-3 col-md-3 form-control home-form number-box" name="search-maxStock" placeholder="上限">
             <label class="col-form-label home-form">　個</label>
           </div>
-          
+        
           <div class="col-sm-auto search-btn-box">
             <button  id="search-btn" type="button" class="btn btn-primary search-btn btn-lg">検索</button>
           </div>
+        </div>
       </div>
     </div>
   </div>
@@ -96,7 +94,7 @@
       <div class="dropDown">
         <ul class="dropDown-menu">
           <li class="dropDown-list"><a href="javascript:void(0)" onClick="hogeFunction();return false;" class="sort">並び替え</a>
-            <ul class="items">
+          <ul class="items">
               <li class="item item_1">@sortablelink('id', 'ID')</li>
               <li class="item">@sortablelink('product_name','商品名')</li>
               <li class="item">@sortablelink('price', '価格')</li>
@@ -133,7 +131,6 @@
               <p class="admin-btn">
                 <button class="btn btn-info btn-tb buy-btn" data-id="{{ $product->id }}" data-name="{{ $product->product_name }}" style="color:white;">購入</button>
               </p>
-              
               <button id="delete-btn" class="btn btn-danger admin-btn delete-btn" type="button">削除</button>
             </td>
           </tr>
@@ -143,6 +140,7 @@
     {{ $products->appends(request()->query())->onEachSide(5)->links('pagination::bootstrap-4') }}  
   </div>
 </div>
+
 
 
 @endsection

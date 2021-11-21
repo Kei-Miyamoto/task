@@ -4,22 +4,6 @@
 @section('content')
 <link href="{{ asset('css/auth.css') }}" rel="stylesheet">
 
-<body>
-  <script>
-    @if (Session::has('msg_success'))
-      $(function() {
-        toastr.success('{{ session('msg_success') }}');
-      });
-    @endif
-  </script>
-  <script>
-    @if (Session::has('msg_error'))
-      $(function() {
-        toastr.error('{{ session('msg_error') }}');
-      });
-      @endif
-      </script>
-
 <div class="auth-wrapper">
   <div class="container auth-container">
     <div class="card">
@@ -73,8 +57,5 @@
     </div>
   </div>
 </div>
-<!-- パスワード非表示/表示 -->
-<script></script>
-</body>
 
 @endsection('content')

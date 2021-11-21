@@ -11,7 +11,7 @@
   
 
 <!-- 非同期処理用画面遷移 -->
-<button type="button" class="btn btn-secondary btn-back" onclick="location.href='{{ route('ajaxhome') }}'">非同期処理画面</button>
+
 
 <!--検索フォーム-->
 
@@ -50,7 +50,6 @@
             <label class="col-form-label home-form col-xs-2" for="">　〜　</label>
             <input type="search" value="{{ $search_maxPrice }}" class="col-xs-2 col-sm-3 col-md-3 form-control home-form number-box" name="search_maxPrice" placeholder="上限">
             <label class="col-form-label home-form">　円</label>
-            
           </div>
 
           <div class="form-group row search-row">

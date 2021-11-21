@@ -14,7 +14,7 @@ use App\Models\Company;
 class ListController extends Controller
 {
 
-  public function ajaxhome(Request $request) {
+  public function home(Request $request) {
     $company = new Company;
       $query = Product::query();
       //フォームを機能させるために各情報を取得viewに返す

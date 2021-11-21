@@ -34,11 +34,8 @@ Route::group(['middleware' => ['guest']], function() {
 Route::group(['middleware' => ['auth']], function() {
   //ログアウト
   Route::post('logout',[AuthController::class,'logout'])->name('logout');
-  //ログイン後ホーム（商品一覧検索画面）
-  Route::get('/home', [HomeController::class, 'showHome'])->name('home');
-  Route::get('/home/ajax/', [HomeController::class, 'ajax'])->name('ajax');
-  //仮ホーム（非同期処理検索画面）
-  Route::get('/ajax',[ListController::class,'ajaxhome'])->name('ajaxhome');
+  //ホーム（非同期処理検索画面）
+  Route::get('/home',[ListController::class,'home'])->name('home');
   Route::get('/ajax/search/',[ListController::class,'ajaxSearch'])->name('ajaxSearch');
   
   

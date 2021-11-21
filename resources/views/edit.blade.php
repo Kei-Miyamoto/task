@@ -87,21 +87,13 @@
         </div>
         <div class="admin-btn">
           <button type="button" class="btn btn-secondary btn-back" onclick="location.href='{{ route('home') }}'">戻る</button>
-          <button type="submit" class="btn btn-primary btn-edit">更新</button>
+          <button id="edit-btn" type="submit" class="btn btn-primary btn-edit" >更新</button>
         </div>
       </form>
     </div>
     
   </div>
 </div>
-<script>
-function checkSubmit(){
-if(window.confirm('更新してよろしいですか？')){
-    return true;
-} else {
-    return false;
-}
-}
-</script>
+
 
 @endsection

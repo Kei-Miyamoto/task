@@ -80,20 +80,11 @@
   
         <div class="admin-btn">
           <button type="button" class="btn btn-secondary btn-back" onclick="location.href='{{ route('home') }}'">戻る</button>
-          <button type="submit" class="btn btn-primary btn-create">登録</button>
+          <button id="create-btn" type="submit" class="btn btn-primary btn-create">登録</button>
         </div>
       </form>
     </div>
   </div>
 </div>
-<script>
-  function checkSubmit() {
-    if(window.confirm('送信してよろしいですか？'){
-      return true;
-    } else {
-      return false;
-    }
-  }
-</script>
 
 @endsection
