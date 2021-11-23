@@ -8,14 +8,16 @@
 <title>@yield('title')</title>
 
 <!-- Scripts -->
+    
+<script src="{{ asset('js/pass.js') }}" defer></script>
 <script src="{{ asset('js/app.js') }}" ></script>
-<script src="{{ asset('js/main.js') }}" ></script>
 <script src="{{ asset('js/crud.js') }}" ></script>
+<script src="{{ asset('js/search.js') }}" ></script>
 
 <!--Sessionメッセージ Script-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script></script>
+
 <!-- Fonts -->
 <link rel="dns-prefetch" href="//fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -33,16 +35,16 @@
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 
 <script>
-//成功時
+  //成功時
   @if (Session::has('msg_success'))
-    $(function() {
-      toastr.success('{{ session('msg_success') }}');
-    });
+  $(function() {
+    toastr.success('{{ session('msg_success') }}');
+  });
   @endif
   //失敗時
   @if (Session::has('msg_error'))
-    $(function() {
-      toastr.error('{{ session('msg_error') }}');
-    });
+  $(function() {
+    toastr.error('{{ session('msg_error') }}');
+  });
   @endif
-</script>
+  </script>

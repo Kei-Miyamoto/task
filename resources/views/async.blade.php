@@ -90,7 +90,7 @@
     <h4 class="text-center product-title">商品一覧</h4>
     <p class="text-right"><a type="submit" class="btn btn-success create-btn" href="{{ route('create') }}">新規登録</a></p>
     
-    <table id="table" class="table table-hover dataTable">
+    <table id="table" class="table table-hover">
       <div class="dropDown">
         <ul class="dropDown-menu">
           <li class="dropDown-list"><a href="javascript:void(0)" onClick="hogeFunction();return false;" class="sort">並び替え</a>

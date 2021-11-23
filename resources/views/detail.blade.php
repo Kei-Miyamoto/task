@@ -28,7 +28,7 @@
           </tr>
 
           <tr>
-            <td data-label="商品画像" rowspan="5"><img src="{{ '/storage/' . $product_detail->image }}" class="product-img" /></td>
+            <td data-label="商品画像" rowspan="5"style="width:300px;height:300px;"><img src="{{ '/storage/' . $product_detail->image }}" class="product-img" /></td>
             <td data-label="価格">{{ $product_detail->price }}</td>
           </tr>
         

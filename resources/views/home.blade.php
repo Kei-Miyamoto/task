@@ -25,7 +25,7 @@
           <div class="form-group row col- search-row">
             <label class="col-xs-12 col-sm-4 col-md-4 col-form-label home-form">商品名</label>
             <!--入力-->
-            <input id="search-name" type="search" value="{{ $search_product_name }}" class="col-xs-12 col-sm-7 col-md-7 form-control home-form" name="search_product_name">
+            <input id="search-name" type="search" value="" class="col-xs-12 col-sm-7 col-md-7 form-control home-form" name="search_product_name">
           </div>
           
           <!--プルダウンカテゴリ選択-->

@@ -27,7 +27,7 @@
         <div class="form-group row col- form-row">
           <label class="col-xs-12 col-sm-3 col-md-3 col-form-label" for="image">商品画像</label>
           <div class="img-box col-xs-12 col-sm-8 col-md-8">
-            <input  class="form-contro-file" name="image" type="file" accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png" id="image" value="">
+            <input class="form-contro-file" name="image" type="file" accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png" id="image" value="">
           </div>
         </div>
   
