@@ -13,7 +13,7 @@
         </div>
     </div>
 </template>
-
+<script src="{{ mix('/js/app.js') }}" defer></script>
 <script>
     export default {
         mounted() {

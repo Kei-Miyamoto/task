@@ -1,4 +1,44 @@
 @import"variables";
+
+//購入モーダルウィンドウ
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+.modal-window {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  background-color: #dfdddd;
+  border-radius: 5px;
+  z-index: 11;
+  padding: 2rem;
+}
+//閉じるボタン
+.js-close {
+  position: absolute;
+  top: 80%;
+  left: 28%;
+  transform: translate(-50%, -50%);
+}
+//購入ボタン
+.js-buy {
+  position: absolute;
+  top: 80%;
+  right: 10%;
+  transform: translate(-50%, -50%);
+}
+
 //商品検索ボックス
 .search-wrapper {
   margin: 0 auto;
@@ -32,6 +72,12 @@
               .home-form {
                 margin-right: 20px;
               }
+              input {
+                margin: 0;
+              }
+              .number-box {
+                margin: 0;
+              }
             }
           }
 
@@ -56,86 +102,152 @@
 
   .list-container {
     max-width: 1000px;
-
-      .create-btn {
-        margin-right: 20px;
+    .dropDown { //並び替えのナビゲーションPC表示
+      display: none;
+      .dropDown-menu {
+        list-style: none;
+        float: right;
+        width: 120px;
+        .dropDown-list {
+          position: relative;
+          .sort {
+            width: 70px;
+            text-align: center;
+            background-color: $cyan;
+            color: #fff;
+            font-weight: 250;
+            font-size: 0.8rem;
+            padding: 3px;
+            border-radius: 0.25rem;
+            text-decoration: none;
+            display: inline-block;
+            user-select: none;
+            &:hover {
+              cursor: pointer;
+              opacity: 1;
+            }
+          }
+          .items {
+            position: absolute;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            top: 40px;
+            width: 100%;
+            background-color: rgb(233, 241, 245);
+            border: 1px solid $cyan;
+            list-style: none;
+            -webkit-transition: all .2s ease;
+            transition: all .2s ease;
+            display: none;
+            .item {
+              border-top: 1px solid black;
+              text-align: left;
+              text-decoration: none;
+            }
+            .item_1 {
+              border-top: none;
+            }
+          }
+          &:hover .items {
+            top: 26px;
+            visibility: visible;
+            display: block;
+            border-radius: 0.25rem;
+          }
+        }
       }
-      .table {  
-        text-align: center;
-        border: 0.13rem solid $gray;
-        max-width: 1000px;
-
-        .table-heading {//各行の幅
-          .th-id {
-            width: 5%;
-          }
-          .th-name {
-            width: 18%;
-          }
-          .th-img {
-            width: 24%;
-          }
-          .th-price {
-            width: 10%;
-          }
-          .th-stock {
-            width: 10%;
-          }
-          .th-maker {
-            width: 18%;
-          }
-          .th-admin {
-            width: 15%;
-          }
+    }
+    @media(max-width: $tab) { //並び替えのナビゲーションtab以下
+      .dropDown {
+        width: 100%;
+        display: block;
+        .dropDown-menu {
+          margin-bottom: 24px;
         }
-        .product-img {
-          max-width: 200px;
-          max-height: 200px;
-        }
-        tr, td {
-          vertical-align: middle;
-        }
-        
+      }
+    }
+  }
+  .create-btn {
+    margin-right: 50px;
+  }
+  .table {  
+    text-align: center;
+    border: 0.13rem solid $gray;
+    max-width: 1000px;
 
+    .table-heading {//各行の幅
+      .th-id {
+        width: 8%;
+      }
+      .th-name {
+        width: 18%;
+      }
+      .th-img {
+        width: 22%;
+      }
+      .th-price {
+        width: 10%;
+      }
+      .th-stock {
+        width: 12%;
+      }
+      .th-maker {
+        width: 18%;
+      }
+      .th-admin {
+        width: 12%;
+      }
+    }
+    .product-img {
+      max-width: 200px;
+      max-height: 200px;
+    }
+    tr, td {
+      vertical-align: middle;
+    }
 
-        @include tab() { //タブレット以下サイズ
+    @include tab() { //タブレット以下サイズ
+      //width: 100%;
+      //text-align: center;
+      
+        thead {
+          display:none;
+        }
+        tr {
           width: 100%;
-          text-align: center;
-          
-            thead {
-              display:none;
-            }
-            tr {
-              width: 100%;
-              th {
-                justify-content: center;
-              }
-            }
-            td {
-              width: 100%;
-              display: block;
-              text-align: right;
-              valign: middle;
-            }
-            td:first-child {
-              background-color: $cyan;
-              counter-reset: $white;
-              font-weight: bold;
-              text-align: center;
-            }
-            td:before {
-              content:attr(data-label);
-              float: left;
-              font-weight: $caption;
-              margin-right: 10px;
-          }
-          .btn-row {
-            display: flex;
-            p, form {
-              margin: 0 auto;
-            }                                    
+          th {
+            justify-content: center;
           }
         }
+        td {
+          width: 100%;
+          display: block;
+          text-align: right;
+          valign: middle;
+        }
+        td:first-child {
+          background-color: $cyan;
+          counter-reset: $white;
+          font-weight: bold;
+          text-align: center;
+        }
+        td:before {
+          content:attr(data-label);
+          float: left;
+          font-weight: $caption;
+          margin-right: 10px;
       }
+      .btn-row {
+        display: flex;
+        p, form {
+          margin: 0 auto;
+        }
+        .buy-btn{
+          color: white;
+        }                                    
+      }
+    }
   }
 }
+
+

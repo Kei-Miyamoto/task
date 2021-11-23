@@ -75,7 +75,6 @@ class Detail_EditController extends Controller
         if($request->hasFile('image')) { //画像を登録する場合
           //画像ファイル
           $deleteName = $product_edit->image;
-          //dd($deleteName);
           Storage::delete('public/'. $deleteName);
           $inputs = [
             $product_edit->product_name = $request->product_name,

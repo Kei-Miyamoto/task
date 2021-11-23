@@ -3,12 +3,18 @@
 <head>
   @include('layouts.head')
 </head>
-  <body>
-    <div id="app">
-      @include('layouts.nav')<!-- ナビゲーション -->
-    </div>
-    <div id="app">
-    @yield('content') <!-- コンテンツ -->
-    </div>    
-  </body>
+<body>
+  
+
+  <div id="app">
+    <!-- ナビゲーション-->
+    @include('layouts.nav')
+    
+    <!-- コンテンツ -->
+    @yield('content') 
+  </div>
+  
+</body>
+
 </html>
+  

@@ -27,7 +27,7 @@
         <div class="form-group row col- form-row">
           <label class="col-xs-12 col-sm-3 col-md-3 col-form-label" for="image">商品画像</label>
           <div class="img-box col-xs-12 col-sm-8 col-md-8">
-            <input  class="form-contro-file" name="image" type="file" accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png" id="image" value="">
+            <input class="form-contro-file" name="image" type="file" accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png" id="image" value="">
           </div>
         </div>
   
@@ -80,20 +80,11 @@
   
         <div class="admin-btn">
           <button type="button" class="btn btn-secondary btn-back" onclick="location.href='{{ route('home') }}'">戻る</button>
-          <button type="submit" class="btn btn-primary btn-create">登録</button>
+          <button id="create-btn" type="submit" class="btn btn-primary btn-create">登録</button>
         </div>
       </form>
     </div>
   </div>
 </div>
-<script>
-  function checkSubmit() {
-    if(window.confirm('送信してよろしいですか？'){
-      return true;
-    } else {
-      return false;
-    }
-  }
-</script>
 
 @endsection

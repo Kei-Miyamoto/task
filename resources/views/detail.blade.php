@@ -28,7 +28,7 @@
           </tr>
 
           <tr>
-            <td data-label="商品画像" rowspan="5"><img src="{{ '/storage/' . $product_detail->image }}" class="product-img" /></td>
+            <td data-label="商品画像" rowspan="5"style="width:300px;height:300px;"><img src="{{ '/storage/' . $product_detail->image }}" class="product-img" /></td>
             <td data-label="価格">{{ $product_detail->price }}</td>
           </tr>
         
@@ -60,40 +60,11 @@
 
       <div class="admin-btn btn-row">
           <a href="/home" class="btn btn-secondary btn-tb back-btn">戻る</a>
-          <a href="/product/edit/{{ $product_detail->id }}" class="btn btn-info btn-tb edit-btn">編集</a>
+          <a href="/product/edit/{{ $product_detail->id }}" class="btn btn-info btn-tb edit-btn" style="color: white;">編集</a>
       </div>
 
     </div>
   </div>
 </div>
-
-<!-- 横並びレイアウト -->
-          <!-- <th class="th-id">ID</th>
-            <th class="th-name">商品名</th>
-            <th class="th-img">商品画像</th>
-            <th class="th-price">価格</th>
-            <th class="th-stock">在庫数</th>
-            <th class="th-maker">メーカー名</th>
-            <th class="th-comment">コメント</th>
-            <th class="th-admin" colspan="">管理</th>
-          </tr>
-        <id="tb1">
-          <tr>
-            <td data-label="ID" class="id">{{ $product_detail->id }}</td>
-            <td data-label="商品名">{{ $product_detail->product_name }}</td>
-            <td data-label="商品画像"><img src="{{ '/storage/' . $product_detail->image }}" class="w-100 mb-3" /></td>
-            <td data-label="価格">{{ $product_detail->price }}</td>
-            <td data-label="在庫数 ">{{ $product_detail->stock }}</td>
-            <td data-label="メーカー名">{{ $product_detail->company->company_name }}</td>
-            <td data-label="コメント">{{ $product_detail->comment }}</td>
-            <td class="btn-row">
-              <p class="admin-btn"> 
-                <a href="/product/edit/{{ $product_detail->id }}" class="btn btn-info btn-tb">編集</a>
-                <a href="/home" class="btn btn-secondary btn-tb">戻る</a>
-              </p>
-            </td>
-          </tr>
-        < -->
-
 
 @endsection
